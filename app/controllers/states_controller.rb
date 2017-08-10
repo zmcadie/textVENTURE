@@ -1,6 +1,10 @@
 class StatesController < ApplicationController
   def index
-    redirect_to action: 'show', id: 1
+    if session[:state_id]
+      redirect_to action: 'show', id: session[:state_id]
+    else
+      redirect_to action: 'show', id: 1
+    end
   end
 
   def show
