@@ -1,7 +1,7 @@
 class StatesController < ApplicationController
 
   def show
-    @state = ['text']
+    @state = State.find(1)
   end
 
 end
