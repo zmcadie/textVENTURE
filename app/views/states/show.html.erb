@@ -1,7 +1,7 @@
 <section>
   <%= @state.description %>
   <br>
-  <%= form_for :cats, url: "/", method: 'POST' do |f| %>
+  <%= form_for :user_input, url: "/", method: 'POST' do |f| %>
     <%= f.text_field :trigger %>
     <%= f.hidden_field :state_id, value: @session %>
   <% end %>

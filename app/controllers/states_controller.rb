@@ -18,7 +18,7 @@ class StatesController < ApplicationController
   private
 
   def form_params
-    params.require(:cats).permit(
+    params.require(:user_input).permit(
       :trigger,
       :state_id
     )
