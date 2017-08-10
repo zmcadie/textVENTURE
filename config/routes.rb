@@ -1,3 +1,5 @@
 Rails.application.routes.draw do
-  root to: 'states#show'
+  get '/' => 'states#index'
+  get '/:id' => 'states#show'
+  post '/' => 'states#update'
 end
