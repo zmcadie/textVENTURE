@@ -5,10 +5,17 @@
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'application', 'https://fonts.googleapis.com/css?family=Roboto+Mono' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
+  <header>
+  <h1>textVENTURE</h1>
+  </header>
     <%= yield %>
+    <footer>
+    <h6>made by us</h6>
+    </footer>
   </body>
 </html>

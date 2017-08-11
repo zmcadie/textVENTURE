@@ -1,5 +1,9 @@
 <section>
-  <%= @state.description %>
+  <div id="state-log">
+    <div id="state-content">
+      > <%= @state.description %>
+    </div>
+  </div>
   <br>
   <%= form_for :user_input, url: "/", method: 'POST' do |f| %>
     <%= f.text_field :trigger %>
