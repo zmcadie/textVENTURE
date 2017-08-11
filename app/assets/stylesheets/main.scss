@@ -1,0 +1,25 @@
+/*//homepage-level general styles*/
+
+body{
+  background-color: black;
+  color: white;
+  font-family: 'Roboto Mono', monospace;
+
+  header {
+  display: inline;
+  position: relative;
+  text-align: left;
+
+    h1 {
+      margin-left: 2vw;
+    }
+  }
+
+  footer {
+  bottom: 0;
+  height: 8vh;
+  position: fixed;
+  text-align: center;
+  width: 100vw;
+  }
+}
