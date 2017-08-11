@@ -23,16 +23,21 @@ class StatesController < ApplicationController
   end
 
   def update
+    clean_trigger = clean_user_input(form_params['trigger'])
     action = form_params
     @@state_log.push(">> #{action[:trigger]}")
-    state = Action.where({ state_id: action[:state_id], trigger: action[:trigger] }).first
+    state = Action.where({ state_id: action[:state_id], trigger: clean_trigger }).first
     if state
       state_id = state.result_id
     else
       state_id = session[:state_id]
     end
     redirect_to action: 'show', id: state_id
+  end
 
+  def clean_user_input(input)
+    cleansed_input = input.strip.downcase.split.join(" ")
+    cleansed_input
   end
 
   private
