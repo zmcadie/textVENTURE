@@ -1,5 +1,7 @@
 <section>
-  <%= @state.description %>
+  <% @log.each do |log| %>
+    <div><%= log %></div>
+  <% end %>
   <br>
   <%= form_for :user_input, url: "/", method: 'POST' do |f| %>
     <%= f.text_field :trigger %>

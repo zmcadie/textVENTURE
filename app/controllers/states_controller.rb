@@ -1,4 +1,6 @@
 class StatesController < ApplicationController
+  @@state_log = []
+
   def index
     if session[:state_id]
       redirect_to action: 'show', id: session[:state_id]
@@ -9,6 +11,8 @@ class StatesController < ApplicationController
 
   def show
     @state = State.find(params[:id])
+    @@state_log.push(@state.description)
+    @log = @@state_log
     session[:state_id] = params[:id]
     @session = session[:state_id]
   end
