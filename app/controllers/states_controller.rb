@@ -19,6 +19,7 @@ class StatesController < ApplicationController
 
   def update
     @action = form_params
+    @@state_log.push(">> #{@action[:trigger]}")
     @state_id = Action.where({ state_id: @action[:state_id], trigger: @action[:trigger] }).first.result_id
     redirect_to action: 'show', id: @state_id
   end
