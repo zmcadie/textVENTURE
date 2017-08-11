@@ -1,7 +1,10 @@
 <section>
   <div id="state-log">
     <div id="state-content">
-      > <%= @state.description %>
+      <% @log.each do |log| %>
+    <div>> <%= log %></div>
+    <br>
+    <% end %>
     </div>
   </div>
   <br>
