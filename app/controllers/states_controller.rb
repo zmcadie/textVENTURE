@@ -24,6 +24,9 @@ class StatesController < ApplicationController
 
   def update
     clean_trigger = clean_user_input(form_params['trigger'])
+    if clean_trigger == 'help'
+      actions_helper
+    end
     action = form_params
     @@state_log.push(">> #{action[:trigger]}")
     state = Action.where({ state_id: action[:state_id], trigger: clean_trigger }).first
@@ -41,6 +44,14 @@ class StatesController < ApplicationController
   end
 
   private
+
+  def actions_helper
+    @available_actions = ""
+    Action.where({ state_id: session['state_id'] }).find_each do |trigger|
+      @available_actions += trigger.trigger << "\n"
+    end
+    @@state_log.push("Maybe try: #{@available_actions}")
+  end
 
   def form_params
     params.require(:user_input).permit(
