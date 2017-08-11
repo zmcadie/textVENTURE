@@ -5,11 +5,12 @@ section {
 
   #state-log {
     border: 0.6vh solid white;
-    display: block;
+    display: flex;
+    flex-direction: column-reverse;
     font-size: 4vh;
     height: 40vh;
     margin: 0 auto;
-    overflow: auto;
+    overflow-y: auto;
     width: 50vw;
 
     #state-content {
