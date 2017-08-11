@@ -15,8 +15,11 @@ class StatesController < ApplicationController
 
   def update
     @action = form_params
-    @state_id = Action.where({ state_id: @action[:state_id], trigger: @action[:trigger] }).first.result_id
-    redirect_to action: 'show', id: @state_id
+    @state = Action.where({ state_id: @action[:state_id], trigger: @action[:trigger] }).first
+    if @state
+      session[:state_id] = @state.result_id
+    end
+    redirect_to action: 'show', id: session[:state_id]
   end
 
   private
