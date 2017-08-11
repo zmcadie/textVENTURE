@@ -1,17 +1,17 @@
 /*// Place all the styles related to the states controller here.*/
 
 section {
-  margin-top: 10vh;
+  margin-top: 5vh;
 
   #state-log {
     border: 0.6vh solid white;
     display: flex;
     flex-direction: column-reverse;
-    font-size: 4vh;
-    height: 40vh;
+    font-size: 3.5vh;
+    height: 55vh;
     margin: 0 auto;
     overflow-y: auto;
-    width: 50vw;
+    width: 65vw;
 
     #state-content {
       margin-left: 2vw;
@@ -27,9 +27,9 @@ section {
       border: 0.6vh solid white;
       color: white;
       font-family: inherit;
-      font-size: 4vh;
+      font-size: 3.5vh;
       height: 5vh;
-      width: 50vw;
+      width: 65vw;
     }
     input#user_input_trigger:focus {
       outline: none;
