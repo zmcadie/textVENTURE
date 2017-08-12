@@ -3,7 +3,7 @@ class StatesController < GamesController
 
   def update
     action = form_params
-    @@state_log.push(">> #{action[:trigger]}")
+    update_state_log(action[:trigger])
     clean_trigger = clean_user_input(form_params['trigger'])
 
     if clean_trigger == 'help'
