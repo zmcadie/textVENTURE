@@ -17,8 +17,15 @@ RSpec.describe StatesController, type: :controller do
       expect(controller.clean_user_input(input)).to eql ("nothing at all nothing at all")
     end
   end
-  describe 'action_helper function' do
+  describe 'actions_helper function' do
     it 'lists available actions for current state' do
+      @state = State.create!(id: 1)
+      @actions = Action.create!(
+        state_id: 1,
+        trigger: 'walk'
+        )
+      session['state_id'] = 1
+      expect(controller.actions_helper).to eql 'Maybe try: walk '
     end
   end
 end
