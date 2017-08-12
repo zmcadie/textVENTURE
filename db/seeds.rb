@@ -3,9 +3,13 @@
 Game.destroy_all
 @game1 = Game.create! id: 1, name: "Harry Potter Maze"
 
+@game2 = Game.create! id: 2, name: "Windows XP Rooms"
+
 State.destroy_all
 
-@maze_entrance = @game1.states.create! id: 1, description: "'Champions, welcome to the third and final task of the Tri-Wizard tournament! In the center of the maze that lies before you, you will find the Tri-Wizard Cup.' You walk towards the entrace of the maze. 'Champions, good luck, and remember you can call for help at any time!' Do you want to enter the maze?"
+# Game 1 #
+
+@maze_entrance = @game1.states.create! description: "'Champions, welcome to the third and final task of the Tri-Wizard tournament! In the center of the maze that lies before you, you will find the Tri-Wizard Cup.' You walk towards the entrace of the maze. 'Champions, good luck, and remember you can call for help at any time!' Do you want to enter the maze?"
 
 @enter = @game1.states.create! description: "As you enter the maze, the bushes close behind you, your breathing is the only sound. There's no turning back now. Ahead, the maze forks into two paths leading off to your left and to your right. Where do you want to go?"
 
@@ -21,7 +25,19 @@ State.destroy_all
 
 @cup = @game1.states.create! description: "Ahead you see a slight blue gleam is shimmering. That's it! The Triwizard Cup stands gleaming on a plinth a hundred yards away. You sprint forward and reaching it, hold a hand out over one of it's gleaming handles. Victory is so close. You only need to reach out at grab it."
 
+# Game 2 #
+
+@blue_room = @game2.states.create! description: "You enter a blue room. There are two doors, one to the north and one to the east. Where do you want to go?" (north => red, east => yellow)
+
+@red_room = @game2.states.create! description: "You enter a red room. There are two doors, one to the south and one to the east. Where do you want to go?" (south => blue, east => green)
+
+@green_room = @game2.states.create! description: "You enter a green room. There are two doors, one to the south and one to the west. Where do you want to go?" (south => yellow, west => red)
+
+@yellow_room = @game2.states.create! description: "You enter a yellow room. There are two doors, one to the north and one to the west. Where do you want to go?" (north => green, west => blue)
+
 Action.destroy_all
+
+# Game 1 #
 
 @maze_entrance.actions.create!({
   trigger: 'no',
@@ -136,4 +152,46 @@ Action.destroy_all
 @cup.actions.create!({
   trigger: 'handle',
   result_id: @maze_entrance.id
+})
+
+# Game 2 #
+
+@blue_room.actions.create!({
+  trigger: 'north',
+  result_id: @red_room.id
+})
+
+@blue_room.actions.create!({
+  trigger: 'east',
+  result_id: @yellow_room.id
+})
+
+@red_room.actions.create!({
+  trigger: 'south',
+  result_id: @blue_room.id
+})
+
+@red_room.actions.create!({
+  trigger: 'east',
+  result_id: @green_room.id
+})
+
+@green_room.actions.create!({
+  trigger: 'south',
+  result_id: @yellow_room.id
+})
+
+@green_room.actions.create!({
+  trigger: 'west',
+  result_id: @red_room.id
+})
+
+@yellow_room.actions.create!({
+  trigger: 'north',
+  result_id: @green_room.id
+})
+
+@yellow_room.actions.create!({
+  trigger: 'west',
+  result_id: @blue_room.id
 })
