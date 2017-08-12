@@ -11,12 +11,14 @@ class GamesController < ApplicationController
   end
 
   def show
-    state = State.find(params[:id])
-    session[:state_id] = params[:id]
+    game = Game.find(params[:id])
+    session[:game_id] = game.id
+    session[:state_id] = game.initial_state_id
     @log = @@state_log
     @session = session[:state_id]
   end
 
-  def update_state_log
+  def update_state_log(input)
+    @@state_log.push(">> #{input}")
   end
 end
