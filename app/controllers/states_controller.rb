@@ -58,10 +58,16 @@ class StatesController < ApplicationController
   def actions_helper
     @available_actions = ""
     Action.where({ state_id: session['state_id'] }).find_each do |trigger|
-      @available_actions += trigger.trigger << "\n"
+      @available_actions += trigger.trigger + " "
     end
-    @@state_log.push("Maybe try: #{@available_actions}")
+    action = "Maybe try: #{@available_actions}"
+    @@state_log.push(action)
+    action
   end
+
+  private
+
+
 
   def form_params
     params.require(:user_input).permit(
