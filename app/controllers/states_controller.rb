@@ -1,4 +1,4 @@
-class StatesController < ApplicationController
+class StatesController < GamesController
   @@state_log = []
 
   def update

@@ -16,4 +16,7 @@ class GamesController < ApplicationController
     @log = @@state_log
     @session = session[:state_id]
   end
+
+  def update_state_log
+  end
 end
