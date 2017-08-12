@@ -23,15 +23,16 @@ class StatesController < ApplicationController
   end
 
   def update
+    action = form_params
+    @@state_log.push(">> #{action[:trigger]}")
     clean_trigger = clean_user_input(form_params['trigger'])
+
     if clean_trigger == 'help'
       actions_helper
     end
-    action = form_params
-    @@state_log.push(">> #{action[:trigger]}")
-    state = Action.where({ state_id: action[:state_id], trigger: clean_trigger }).first
-    if state
-      state_id = state.result_id
+
+    if aprox_trigger?(clean_trigger)
+      state_id = aprox_trigger?(clean_trigger)
     else
       state_id = session[:state_id]
     end
