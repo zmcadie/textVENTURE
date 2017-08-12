@@ -12,6 +12,7 @@ State.destroy_all
 @maze_entrance = @game1.states.create! description: "'Champions, welcome to the third and final task of the Tri-Wizard tournament! In the center of the maze that lies before you, you will find the Tri-Wizard Cup.' You walk towards the entrace of the maze. 'Champions, good luck, and remember you can call for help at any time!' Do you want to enter the maze?"
 
 @game1.initial_state_id = @maze_entrance.id
+@game1.save
 
 @enter = @game1.states.create! description: "As you enter the maze, the bushes close behind you, your breathing is the only sound. There's no turning back now. Ahead, the maze forks into two paths leading off to your left and to your right. Where do you want to go?"
 
@@ -32,6 +33,7 @@ State.destroy_all
 @blue_room = @game2.states.create! description: "You enter a blue room. There are two doors, one to the north and one to the east. Where do you want to go?"
 
 @game2.initial_state_id = @blue_room.id
+@game2.save
 
 @red_room = @game2.states.create! description: "You enter a red room. There are two doors, one to the south and one to the east. Where do you want to go?"
 
