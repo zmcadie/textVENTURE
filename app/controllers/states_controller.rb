@@ -24,9 +24,8 @@ class StatesController < ApplicationController
 
     if clean_trigger == 'help'
       actions_helper
-    end
-
-    if aprox_trigger?(clean_trigger)
+      state_id = session[:state_id]
+    elsif aprox_trigger?(clean_trigger)
       state_id = aprox_trigger?(clean_trigger)
       state = State.find(state_id)
       @@state_log.push(state.description)
@@ -64,10 +63,6 @@ class StatesController < ApplicationController
     @@state_log.push(action)
     action
   end
-
-  private
-
-
 
   def form_params
     params.require(:user_input).permit(
