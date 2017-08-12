@@ -26,6 +26,8 @@ Rails.application.configure do
     config.cache_store = :null_store
   end
 
+  config.x.webpacker[:dev_server_host] = "http://127.0.0.1:8080"
+
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
 
