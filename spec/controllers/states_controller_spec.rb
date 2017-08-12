@@ -17,4 +17,8 @@ RSpec.describe StatesController, type: :controller do
       expect(controller.clean_user_input(input)).to eql ("nothing at all nothing at all")
     end
   end
+  describe 'action_helper function' do
+    it 'lists available actions for current state' do
+    end
+  end
 end
