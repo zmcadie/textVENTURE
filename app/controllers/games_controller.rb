@@ -5,7 +5,7 @@ class GamesController < ApplicationController
     if session[:state_id]
       redirect_to action: 'show', id: session[:state_id]
     else
-      @@state_log.push(State.find(1).description)
+      update_state_log(State.find(1).description)
       redirect_to action: 'show', id: 1
     end
   end

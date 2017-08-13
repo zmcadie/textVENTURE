@@ -1,5 +1,4 @@
 class StatesController < GamesController
-  @@state_log = []
 
   def update
     action = form_params
@@ -12,10 +11,10 @@ class StatesController < GamesController
     elsif aprox_trigger?(clean_trigger)
       state_id = aprox_trigger?(clean_trigger)
       state = State.find(state_id)
-      @@state_log.push(state.description)
+      update_state_log(state.description)
     else
       state_id = session[:state_id]
-      @@state_log.push('Sorry I don\'t know what that means')
+      update_state_log('Sorry I don\'t know what that means')
     end
     redirect_to action: 'show', id: state_id
   end
@@ -39,12 +38,12 @@ class StatesController < GamesController
   end
 
   def actions_helper
-    @available_actions = ""
+    available_actions = ""
     Action.where({ state_id: session['state_id'] }).find_each do |trigger|
-      @available_actions += trigger.trigger + " "
+      available_actions += trigger.trigger + " "
     end
-    action = "Maybe try: #{@available_actions}"
-    @@state_log.push(action)
+    action = "Maybe try: #{available_actions}"
+    update_state_log(action)
     action
   end
 
