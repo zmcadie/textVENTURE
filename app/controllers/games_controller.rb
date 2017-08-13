@@ -3,10 +3,10 @@ class GamesController < ApplicationController
 
   def index
     if session[:state_id]
-      redirect_to action: 'show', id: session[:state_id]
+      redirect_to "games/#{session[:game_id]}/states/#{session[:state_id]}"
     else
-      update_state_log(State.find(1).description)
-      redirect_to action: 'show', id: 1
+      games = find_all_game_descriptions
+      update_state_log(games)
     end
   end
 
@@ -20,5 +20,13 @@ class GamesController < ApplicationController
 
   def update_state_log(input)
     @@state_log.push(">> #{input}")
+  end
+
+  def find_all_game_descriptions
+    games = ""
+    Game.all.each do |game|
+      game += game.name + " "
+    end
+    games
   end
 end
