@@ -19,7 +19,7 @@ class GamesController < ApplicationController
   end
 
   def select
-
+    game_name = game_selection_form[:game_name]
   end
 
   def update_state_log(input)
@@ -32,5 +32,11 @@ class GamesController < ApplicationController
       update_state_log(game.name)
     end
     update_state_log('Simply type the name of the game you wish to play, and hit enter')
+  end
+
+  def game_selection_form
+    params.require(:user_input).permit(
+      :game_name
+    )
   end
 end
