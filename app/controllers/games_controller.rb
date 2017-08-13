@@ -18,6 +18,10 @@ class GamesController < ApplicationController
     @session = session
   end
 
+  def select
+
+  end
+
   def update_state_log(input)
     @@state_log.push(">> #{input}")
   end
