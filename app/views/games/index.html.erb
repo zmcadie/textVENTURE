@@ -1,0 +1,15 @@
+<section>
+  <div id="state-log">
+    <div id="state-content">
+      <% @log.each do |log| %>
+    <div>> <%= log %></div>
+    <br>
+    <% end %>
+    </div>
+  </div>
+  <br>
+  <%= form_for :user_input, url: "/", method: 'POST' do |f| %>
+    <%= f.text_field :trigger, autocomplete: 'off', spellcheck: 'false', autofocus: 'true' %>
+    <%= f.hidden_field :state_id, value: 'test' %>
+  <% end %>
+</section>
