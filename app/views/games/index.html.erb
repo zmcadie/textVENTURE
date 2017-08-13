@@ -8,8 +8,7 @@
     </div>
   </div>
   <br>
-  <%= form_for :user_input, url: "/", method: 'POST' do |f| %>
-    <%= f.text_field :trigger, autocomplete: 'off', spellcheck: 'false', autofocus: 'true' %>
-    <%= f.hidden_field :state_id, value: 'test' %>
+  <%= form_for :user_input, url: "/games", method: 'POST' do |f| %>
+    <%= f.text_field :game_name, autocomplete: 'off', spellcheck: 'false', autofocus: 'true' %>
   <% end %>
 </section>
