@@ -5,8 +5,8 @@ class GamesController < ApplicationController
     if session[:state_id]
       redirect_to "games/#{session[:game_id]}/states/#{session[:state_id]}"
     else
-      games = find_all_game_descriptions
-      update_state_log(games)
+      display_games_index
+      @log = @@state_log
     end
   end
 
@@ -22,11 +22,11 @@ class GamesController < ApplicationController
     @@state_log.push(">> #{input}")
   end
 
-  def find_all_game_descriptions
-    games = ""
+  def display_games_index
+    update_state_log('Welcome to textVENTURE! Please choose a game from the selection below:')
     Game.all.each do |game|
-      game += game.name + " "
+      update_state_log(game.name)
     end
-    games
+    update_state_log('Simply type the name of the game you wish to play, and hit enter')
   end
 end
