@@ -64,4 +64,12 @@ class GamesController < ApplicationController
       :game_name
     )
   end
+
+  def new_game_params
+    params.require(:new_game).permit(
+      :game_title,
+      :state_name,
+      :beginning_state
+      )
+  end
 end
