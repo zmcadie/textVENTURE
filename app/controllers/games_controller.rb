@@ -3,7 +3,7 @@ class GamesController < ApplicationController
 
   def index
     if session[:state_id]
-      redirect_to "games/#{session[:game_id]}/states/#{session[:state_id]}"
+      redirect_to "/games/#{session[:game_id]}/states/#{session[:state_id]}"
     else
       display_games_index
       @log = @@state_log
@@ -20,6 +20,8 @@ class GamesController < ApplicationController
 
   def select
     game_name = game_selection_form[:game_name]
+    new_game = Game.find_by name: game_name
+    redirect_to "/games/#{new_game.id}/states/#{new_game.initial_state_id}"
   end
 
   def update_state_log(input)
