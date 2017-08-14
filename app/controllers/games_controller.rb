@@ -19,6 +19,20 @@ class GamesController < ApplicationController
   end
 
   def new
+  end
+
+  def create
+    game_name = new_game_params[:game_title]
+    @game = Game.new(name: game_name)
+    @state_name = new_game_params[:state_name]
+    if @game.save
+      @initial_state = State.new(description: new_game_params[:beginning_state], game_id: @game.id)
+      @initial_state.save
+      @game.initial_state_id = @initial_state.id
+      redirect_to "/games/#{@game.id}/states"
+    else
+      render :new, notice: 'something went wrong!'
+    end
 # add Game.new
   end
 
