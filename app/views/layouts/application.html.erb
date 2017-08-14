@@ -13,6 +13,9 @@
   <body>
     <header>
       <h1>textVENTURE</h1>
+      <% if flash[:notice] %>
+        <div class="notice"><%= flash[:notice] %></div>
+      <% end %>
     </header>
     <%= yield %>
     <footer>

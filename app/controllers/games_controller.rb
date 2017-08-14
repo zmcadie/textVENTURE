@@ -31,7 +31,7 @@ class GamesController < ApplicationController
     game_name = game_selection_form[:game_name].strip
     new_game = Game.find_by name: game_name
     if new_game == nil
-      update_state_log("No games with that name in here!")
+      flash[:notice] = "No games with that name in here!"
       redirect_back fallback_location: { action: 'index' }
     else
       redirect_to "/games/#{new_game.id}/states/#{new_game.initial_state_id}"
