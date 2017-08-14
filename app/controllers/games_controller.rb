@@ -23,6 +23,10 @@ class GamesController < ApplicationController
     @state_id = state_id
   end
 
+  def new
+
+  end
+
   def select
     game_name = game_selection_form[:game_name].strip
     new_game = Game.find_by name: game_name
