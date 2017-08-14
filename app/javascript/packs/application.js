@@ -1,10 +1,24 @@
-/* eslint no-console:0 */
-// This file is automatically compiled by Webpack, along with any other files
-// present in this directory. You're encouraged to place your actual application logic in
-// a relevant structure within app/javascript and only use these pack files to reference
-// that code so it'll be compiled.
-//
-// To reference this file, add <%= javascript_pack_tag 'application' %> to the appropriate
-// layout file, like app/views/layouts/application.html.erb
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////                                                                                               ///
+////// This directory is automatically compiled by Webpack                                           ////
+/////  Only use these pack files to reference code in app/javascript so that code will be compiled  /////
+////    To reference this file, add <%= javascript_pack_tag 'application' %> to a layout file      //////
+///                                                                                               ///////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+import React from 'react'
+import ReactDOM from 'react-dom'
+import PropTypes from 'prop-types'
+//////////////////////////////////////////////////////////////////////
+/////                                                              ///
+//// Import .jsx files below to include them in the React element ////
+///                                                              /////
+//////////////////////////////////////////////////////////////////////
+import Console from '../Console.jsx'
 
-console.log('Hello World from Webpacker')
+document.addEventListener('DOMContentLoaded', () => {
+  debugger
+  const node = document.getElementById('log')
+  const data = JSON.parse(node.getAttribute('data'))
+
+  ReactDOM.render(<Console log={data} />, document.getElementById('state-content'))
+})
