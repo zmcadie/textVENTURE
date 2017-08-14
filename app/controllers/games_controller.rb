@@ -18,6 +18,10 @@ class GamesController < ApplicationController
     @session = session
   end
 
+  def new
+
+  end
+
   def select
     game_name = game_selection_form[:game_name]
     new_game = Game.find_by name: game_name
