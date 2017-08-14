@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   get '/' => 'games#index'
   # form for adding game to db
   get '/games/new' => 'games#new'
-  post '/games/new' => 'games#new'
+  post '/games/new' => 'games#create'
   # form for adding states to game
   get '/games/:new_id/states' => 'games#states'
   post '/games/:new_id/states' => 'games#states'
