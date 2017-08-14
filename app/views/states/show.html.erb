@@ -1,11 +1,6 @@
 <section>
   <div id="state-log">
-    <div id="state-content">
-      <% @log.each do |log| %>
-    <div>> <%= log %></div>
-    <br>
-    <% end %>
-    </div>
+    <div id="state-content"></div>
   </div>
   <br>
   <%= form_for :user_input, url: "/", method: 'POST' do |f| %>
@@ -13,3 +8,9 @@
     <%= f.hidden_field :state_id, value: @session %>
   <% end %>
 </section>
+
+
+<%= content_tag :div,
+  id: 'log',
+  data: @log.to_json do %>
+<% end %>
