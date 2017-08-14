@@ -19,11 +19,6 @@ class StatesController < GamesController
     redirect_to action: 'show', id: state_id
   end
 
-  def clean_user_input(input)
-    cleansed_input = input.strip.downcase.split.join(" ")
-    cleansed_input
-  end
-
   private
 
   def aprox_trigger?(user_input)
