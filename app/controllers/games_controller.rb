@@ -19,9 +19,19 @@ class GamesController < ApplicationController
   end
 
   def select
-    game_name = game_selection_form[:game_name]
+    game_name = game_selection_form[:game_name].strip
     new_game = Game.find_by name: game_name
-    redirect_to "/games/#{new_game.id}/states/#{new_game.initial_state_id}"
+    if new_game == nil
+      update_state_log("No games with that name in here!")
+      redirect_to action: 'index'
+    else
+      redirect_to "/games/#{new_game.id}/states/#{new_game.initial_state_id}"
+    end
+  end
+
+  def clean_user_input(input)
+    cleansed_input = input.strip.downcase.split.join(" ")
+    cleansed_input
   end
 
   def update_state_log(input)
