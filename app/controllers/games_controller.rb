@@ -19,7 +19,16 @@ class GamesController < ApplicationController
   end
 
   def new
+# add Game.new
+  end
 
+  def states
+    # add State.new to new game
+    # view states' info
+  end
+
+  def connections
+    # add actions to states
   end
 
   def select
