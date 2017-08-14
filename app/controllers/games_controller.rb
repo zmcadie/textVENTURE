@@ -10,11 +10,17 @@ class GamesController < ApplicationController
   end
 
   def show
-    game = Game.find(params[:game_id])
-    session[:game_id] = game.id
-    session[:state_id] = game.initial_state_id
+    game_id = params[:game_id]
+    state_id = params[:state_id]
+
+    session[:game_id] = game_id
+    session[:state_id] = state_id
+
+    description = State.find(state_id).description
+    update_state_log(description)
+
     @log = @@state_log
-    @session = session
+    @state_id = state_id
   end
 
   def select
@@ -22,7 +28,7 @@ class GamesController < ApplicationController
     new_game = Game.find_by name: game_name
     if new_game == nil
       update_state_log("No games with that name in here!")
-      redirect_to action: 'index'
+      redirect_back fallback_location: { action: 'index' }
     else
       redirect_to "/games/#{new_game.id}/states/#{new_game.initial_state_id}"
     end
