@@ -1,11 +1,33 @@
-<section>
+<h2>Add to the Adventure</h2>
+
+<section class="new-states-form">
   <div id="add-states-form">
-    <%= form_for :add_states, url: '/games/:new_id/states', method: 'POST' do |f| %>
+    <%= form_for :add_states, url: "/games/new/#{params[:new_id]}/states", method: 'POST' do |f| %>
       <%= f.label :state_name %>
       <%= f.text_field :state_name, autocomplete: 'off', spellcheck: 'false', autofocus: 'true' %>
 
       <%= f.label :state_description %>
       <%= f.text_area :state_description, autocomplete: 'off' %>
+
+      <%= f.submit %>
     <% end %>
   </div>
 </section>
+
+<aside id="states-sidebar">
+  <section>
+    <header>
+      <h2>States</h2>
+    </header>
+    <ul>
+      <%= State.where(game_id: params[:new_id]).find_each do |state| %>
+        <%= link_to state.name, "/games/new/#{params[:new_id]}/states/#{state.id}" %>
+      <% end %>
+    </ul>
+    <%= link_to 'Add New State', "/games/new/#{params[:new_id]}/states" %>
+  </section>
+</aside>
+
+<div class="start-connecting-link">
+  <h3>start connecting button here</h3>
+</div>
