@@ -1,3 +1,10 @@
-<h6>you made it to games#show via games#index</h6>
-
-<a href="<%= @session['game_id'] %>/states/<%= @session['state_id'] %>">start game</a>
+<section>
+  <div id="state-log">
+    <div id="state-content" data-react-props="<%= @log.to_json %>"></div>
+  </div>
+  <br>
+  <%= form_for :user_input, url: "/", method: 'POST' do |f| %>
+    <%= f.text_field :trigger, autocomplete: 'off', spellcheck: 'false', autofocus: 'true' %>
+    <%= f.hidden_field :state_id, value: @state_id %>
+  <% end %>
+</section>
