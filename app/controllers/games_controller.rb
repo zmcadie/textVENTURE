@@ -3,7 +3,7 @@ class GamesController < ApplicationController
 
   def index
     if session[:state_id]
-      redirect_to "/games/#{session[:game_id]}/states/#{session[:state_id]}"
+      redirect_to "/games/#{session[:game_id]}}"
     else
       @games = display_games_index
     end
@@ -69,9 +69,13 @@ class GamesController < ApplicationController
       session[:state_id] = new_game.initial_state_id
 
       description = State.find(new_game.initial_state_id).description
-      update_state_log(description)
+      logItem = {
+        type: 'game',
+        value: description
+      }
+      update_state_log(logItem)
 
-      redirect_to "/games/#{new_game.id}/states/#{new_game.initial_state_id}"
+      redirect_to "/games/#{new_game.id}"
     end
   end
 
@@ -81,7 +85,7 @@ class GamesController < ApplicationController
   end
 
   def update_state_log(input)
-    @@state_log.push(">> #{input}")
+    @@state_log.push(input)
   end
 
   def display_games_index
@@ -142,15 +146,23 @@ class GamesController < ApplicationController
         new_state_id = aprox_trigger?(clean_input)
         session[:state_id] = new_state_id
         description = State.find(new_state_id).description
-        update_state_log(description)
+        logItem = {
+          type: 'game',
+          value: description
+        }
+        update_state_log(logItem)
       else
         state_id = session[:state_id]
-        update_state_log('Sorry, that state action does not exist')
+        logItem = {
+          type: 'system',
+          value: 'Sorry I don\'t know what that means'
+        }
+        update_state_log(logItem)
       end
     end
 
     if not performed?
-      redirect_to "/games/#{session[:game_id]}/states/#{session[:state_id]}"
+      redirect_to "/games/#{session[:game_id]}"
     end
   end
 
@@ -171,7 +183,11 @@ class GamesController < ApplicationController
     end
     actions_list = available_actions.strip.split.join(", ")
     action = "Maybe try one of: #{actions_list}"
-    update_state_log(action)
+    logItem = {
+      type: 'system',
+      value: action
+    }
+    update_state_log(logItem)
     action
   end
 
@@ -186,4 +202,3 @@ class GamesController < ApplicationController
     next_state_id
   end
 end
-
