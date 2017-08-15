@@ -4,7 +4,7 @@ class StatesController < GamesController
     action = form_params
     logItem = {
       type: 'user',
-      value: action[:trigger]
+      value: ">> #{action[:trigger]}"
     }
     update_state_log(logItem)
     clean_trigger = clean_user_input(form_params['trigger'])
