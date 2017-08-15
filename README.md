@@ -1,24 +1,12 @@
-# README
+# textVENTURE
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+### Development Dependencies
 
-Things you may want to cover:
+- Yarn, run `npm install --global yarn`
+- Webpack (included as gem) run `bundle install`, then `rails webpacker:install`
+- Install react with webpack, run `rails webpacker:install:react`
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+### Getting Started
+- Run `foreman start`
+- Go to `localhost:3000` in your browser of choice
+- Have fun!!
