@@ -174,7 +174,8 @@ class GamesController < ApplicationController
     Action.where({ state_id: session['state_id'] }).find_each do |trigger|
       available_actions += trigger.trigger + " "
     end
-    action = "Maybe try: #{available_actions}"
+    actions_list = available_actions.strip.split.join(", ")
+    action = "Maybe try one of: #{actions_list}"
     update_state_log(action)
     action
   end
