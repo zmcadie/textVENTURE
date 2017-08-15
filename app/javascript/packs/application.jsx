@@ -17,8 +17,10 @@ import Console from '../Console.jsx'
 
 document.addEventListener('DOMContentLoaded', () => {
   const reactRoot = document.getElementById('state-content')
-  let data = JSON.parse(reactRoot.dataset.reactProps)
-  if (data === undefined) data = []
+  const reactProps = reactRoot.dataset.reactProps
 
-  ReactDOM.render(<Console log={data} />, reactRoot)
+  if (reactProps) {
+    const data = JSON.parse(reactProps)
+    ReactDOM.render(<Console log={data} />, reactRoot)
+  }
 })
