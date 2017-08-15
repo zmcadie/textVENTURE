@@ -1,1 +1,11 @@
-<h1>add states</h1>
+<section>
+  <div id="add-states-form">
+    <%= form_for :add_states, url: '/games/:new_id/states', method: 'POST' do |f| %>
+      <%= f.label :state_name %>
+      <%= f.text_field :state_name, autocomplete: 'off', spellcheck: 'false', autofocus: 'true' %>
+
+      <%= f.label :state_description %>
+      <%= f.text_area :state_description, autocomplete: 'off' %>
+    <% end %>
+  </div>
+</section>
