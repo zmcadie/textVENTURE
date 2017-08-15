@@ -9,3 +9,12 @@
     <% end %>
   </div>
 </section>
+
+<aside id="states-sidebar">
+  <section>
+    <header>
+      <h2>States</h2>
+    </header>
+    <h1>this is state descriptions until zola gets names in the db: <%= State.find_by(game_id: params[:new_id]).description %></h1>
+  </section>
+</aside>
