@@ -5,7 +5,7 @@
   <br>
   <%= form_for :user_input, url: "/", method: 'POST' do |f| %>
     <%= f.text_field :trigger, autocomplete: 'off', spellcheck: 'false', autofocus: 'true' %>
-    <%= f.hidden_field :state_id, value: @session %>
+    <%= f.hidden_field :state_id, value: @state_id %>
   <% end %>
 </section>
 

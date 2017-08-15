@@ -1,0 +1,13 @@
+<h1>games new get</h1>
+
+<section>
+  <div id="new-game-form">
+    <%= form_for :new_game, url: "/games/new", method: 'POST' do |f| %>
+      <%= f.label :name %>
+      <%= f.text_field :name, autocomplete: 'off', spellcheck: 'false', autofocus: 'true' %>
+      <%= f.label :beginning_state %>
+      <%= f.text_area :beginning_state, autocomplete: 'off' %>
+
+    <% end %>
+  </div>
+</section>
