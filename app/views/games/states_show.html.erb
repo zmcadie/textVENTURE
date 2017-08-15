@@ -5,3 +5,17 @@
     <p><%= @state.description %></p>
   </div>
 </section>
+
+<aside id="states-sidebar">
+  <section>
+    <header>
+      <h2>States</h2>
+    </header>
+    <ul>
+      <%= State.where(game_id: params[:new_id]).find_each do |state| %>
+        <%= link_to state.name, "/games/new/#{params[:new_id]}/states/#{state.id}" %>
+      <% end %>
+    </ul>
+    <%= link_to 'Add New State', "/games/new/#{params[:new_id]}/states" %>
+  </section>
+</aside>
