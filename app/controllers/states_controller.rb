@@ -1,44 +1,24 @@
-class StatesController < ApplicationController
-  @@state_log = []
-
-  def index
-    if session[:state_id]
-      redirect_to action: 'show', id: session[:state_id]
-    else
-      @@state_log.push(State.find(1).description)
-      redirect_to action: 'show', id: 1
-    end
-  end
-
-  def show
-    state = State.find(params[:id])
-    session[:state_id] = params[:id]
-    @log = @@state_log
-    @session = session[:state_id]
-  end
+class StatesController < GamesController
 
   def update
     action = form_params
-    @@state_log.push(">> #{action[:trigger]}")
+    update_state_log(action[:trigger])
     clean_trigger = clean_user_input(form_params['trigger'])
 
     if clean_trigger == 'help'
       actions_helper
       state_id = session[:state_id]
     elsif aprox_trigger?(clean_trigger)
-      state_id = aprox_trigger?(clean_trigger)
-      state = State.find(state_id)
-      @@state_log.push(state.description)
+      new_state_id = aprox_trigger?(clean_trigger)
+      session[:state_id] = new_state_id
+      description = State.find(new_state_id).description
+      update_state_log(description)
     else
       state_id = session[:state_id]
-      @@state_log.push('Sorry I don\'t know what that means')
+      update_state_log('Sorry I don\'t know what that means')
     end
-    redirect_to action: 'show', id: state_id
-  end
 
-  def clean_user_input(input)
-    cleansed_input = input.strip.downcase.split.join(" ")
-    cleansed_input
+    redirect_to "/games/#{session[:game_id]}"
   end
 
   private
@@ -55,12 +35,12 @@ class StatesController < ApplicationController
   end
 
   def actions_helper
-    @available_actions = ""
+    available_actions = ""
     Action.where({ state_id: session['state_id'] }).find_each do |trigger|
-      @available_actions += trigger.trigger + " "
+      available_actions += trigger.trigger + " "
     end
-    action = "Maybe try: #{@available_actions}"
-    @@state_log.push(action)
+    action = "Maybe try: #{available_actions}"
+    update_state_log(action)
     action
   end
 

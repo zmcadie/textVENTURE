@@ -11,12 +11,15 @@
   </head>
 
   <body>
-  <header>
-  <h1>textVENTURE</h1>
-  </header>
+    <header>
+      <h1>textVENTURE</h1>
+      <% if flash[:notice] %>
+        <div class="notice"><%= flash[:notice] %></div>
+      <% end %>
+    </header>
     <%= yield %>
     <footer>
-    <h6>made by us</h6>
+      <h6>made by us</h6>
     </footer>
   </body>
 </html>

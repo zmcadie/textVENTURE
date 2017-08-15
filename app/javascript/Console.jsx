@@ -3,10 +3,8 @@ import React, {Component} from 'react'
 class Console extends Component {
   render() {
 
-    {console.log(this.props.log)}
-
-    const logs = this.props.log.map((log) => {
-      return <div>{log}</div>
+    const logs = this.props.log.map((log, i) => {
+      return <div key={i}>{log}</div>
     })
 
     return(
