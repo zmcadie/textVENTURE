@@ -1,6 +1,6 @@
 <section>
   <div id="state-log">
-    <div id="state-content"></div>
+    <div id="state-content" data-react-props="<%= @log.to_json %>">this is working</div>
   </div>
   <br>
   <%= form_for :user_input, url: "/", method: 'POST' do |f| %>
@@ -8,9 +8,3 @@
     <%= f.hidden_field :state_id, value: @state_id %>
   <% end %>
 </section>
-
-
-<%= content_tag :div,
-  id: 'log',
-  data: @log.to_json do %>
-<% end %>
