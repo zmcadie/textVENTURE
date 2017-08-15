@@ -8,7 +8,8 @@
       to
       <%= f.select :second_state, options_from_collection_for_select(State.where(game_id: params[:new_id]), :id, :name) %>
       with
-      <%= f.text_field :trigger_word, placeholder: 'ex. right, left' %>
+      <%= f.text_field :trigger_word, placeholder: 'ex. right, left', autocomplete: 'off' %>
+      <%= f.submit %>
     <% end %>
   </div>
 </section>
@@ -26,3 +27,16 @@
     <%= link_to 'Add New State', "/games/new/#{params[:new_id]}/states" %>
   </section>
 </aside>
+
+<section id="existing-connections">
+  <header>Existing connections for this state</header>
+    <%= Action.where(state_id: params[:state_id]).find_each do |action| %>
+      <ul>
+        <%= State.find_by(id: params[:state_id]).name %>
+        connects to
+        <%= State.find_by(id: action.result_id).name %>
+        with
+        <%= action.trigger %>
+      </ul>
+    <% end %>
+</section>
