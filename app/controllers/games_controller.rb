@@ -26,6 +26,7 @@ class GamesController < ApplicationController
       @initial_state = State.new(name: new_game_params[:state_name], description: new_game_params[:beginning_state], game_id: @game.id)
       @initial_state.save
       @game.initial_state_id = @initial_state.id
+      @game.save
       redirect_to "/games/new/#{@game.id}/states"
     else
       redirect_back fallback_location: { action: 'new'}
