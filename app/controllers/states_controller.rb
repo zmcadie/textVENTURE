@@ -9,14 +9,16 @@ class StatesController < GamesController
       actions_helper
       state_id = session[:state_id]
     elsif aprox_trigger?(clean_trigger)
-      state_id = aprox_trigger?(clean_trigger)
-      state = State.find(state_id)
-      update_state_log(state.description)
+      new_state_id = aprox_trigger?(clean_trigger)
+      session[:state_id] = new_state_id
+      description = State.find(new_state_id).description
+      update_state_log(description)
     else
       state_id = session[:state_id]
       update_state_log('Sorry I don\'t know what that means')
     end
-    redirect_to action: 'show', id: state_id
+
+    redirect_to "/games/#{session[:game_id]}/states/#{session[:state_id]}"
   end
 
   private
