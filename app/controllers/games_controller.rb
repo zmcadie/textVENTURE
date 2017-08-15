@@ -126,6 +126,68 @@ class GamesController < ApplicationController
     user_input
   end
 
+  def handle_user_input(user_input)
+    clean_input = clean_user_input(user_input) # Remove whitespacing, make downcase
 
+    if system_message?(clean_input) # Is it a system-type message?
+      keyword = slice_dashes(clean_input) # If yes, slice off the dashes
+      command = "command_#{keyword}"
+      if respond_to? command # Does this command actually exist in games controller?
+        send command # If yes, then execute that command
+      else # If no, return error below
+        update_state_log("Sorry, that system command does not exist")
+      end
+    else # If not a system message, then it is a user action # So take their trigger and find the next_state_id
+      if approx_trigger?(clean_input)
+        new_state_id = aprox_trigger?(clean_input)
+        session[:state_id] = new_state_id
+        description = State.find(new_state_id).description
+        update_state_log(description)
+      else
+        state_id = session[:state_id]
+        update_state_log('Sorry, that state action does not exist')
+      end
+    end
+
+    if not performed?
+      redirect_to "/games/#{session[:game_id]}/states/#{session[:state_id]}"
+    end
+  end
+
+  def command_help
+    actions_helper
+  end
+
+  def command_index
+    session = nil
+    redirect_to "/"
+  end
+
+  def command_clear
+    session = nil
+    @@state_log = []
+    redirect_to "/"
+  end
+
+  def actions_helper
+    available_actions = ""
+    Action.where({ state_id: session['state_id'] }).find_each do |trigger|
+      available_actions += trigger.trigger + " "
+    end
+    action = "Maybe try: #{available_actions}"
+    update_state_log(action)
+    action
+  end
+
+  def aprox_trigger?(user_input)
+    next_state_id = nil
+    Action.where({ state_id: session['state_id'] }).find_each do |action|
+      trigger_words = action.trigger.split
+      if trigger_words.any? { |word| user_input.include?(word) }
+        next_state_id = action.result_id
+      end
+    end
+    next_state_id
+  end
 end
 
