@@ -16,8 +16,15 @@ import PropTypes from 'prop-types'
 import Console from '../Console.jsx'
 
 document.addEventListener('DOMContentLoaded', () => {
-  const node = document.getElementById('log')
-  const data = JSON.parse(node.getAttribute('data'))
+  // let node
+  // let data = this.props
+  // if (document.getElementById('log')) {
+  //   node = document.getElementById('log')
+  //   data = JSON.parse(node.getAttribute('data'))
+  // }
+  debugger
+  const reactRoot = document.getElementById('state-content')
+  const data = JSON.parse(reactRoot.dataset.reactProps)
 
-  ReactDOM.render(<Console log={data} />, document.getElementById('state-content'))
+  ReactDOM.render(<Console log={data} />, reactRoot)
 })
