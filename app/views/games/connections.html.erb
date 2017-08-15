@@ -6,11 +6,11 @@
     <header>
       <h2>States</h2>
     </header>
-    <ul>
       <%= State.where(game_id: params[:new_id]).find_each do |state| %>
-        <%= link_to state.name, "/games/new/#{params[:new_id]}/states/#{state.id}/connections" %>
+        <ul>
+          <%= link_to state.name, "/games/new/#{params[:new_id]}/states/#{state.id}/connections" %>
+        </ul>
       <% end %>
-    </ul>
     <%= link_to 'Add New State', "/games/new/#{params[:new_id]}/states" %>
   </section>
 </aside>
