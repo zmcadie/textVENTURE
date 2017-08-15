@@ -36,7 +36,7 @@
         connects to
         <strong><%= State.find_by(id: action.result_id).name %></strong>
         with
-        <strong><%= action.trigger %></strong>
+        <strong>"<%= action.trigger %>"</strong>
       </ul>
     <% end %>
 </section>
