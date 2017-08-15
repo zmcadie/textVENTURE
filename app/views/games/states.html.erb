@@ -1,8 +1,8 @@
 <h2>Add to the Adventure</h2>
 
-<section>
+<section class="new-states-form">
   <div id="add-states-form">
-    <%= form_for :add_states, url: '/games/new/:new_id/states', method: 'POST' do |f| %>
+    <%= form_for :add_states, url: "/games/new/#{params[:new_id]}/states", method: 'POST' do |f| %>
       <%= f.label :state_name %>
       <%= f.text_field :state_name, autocomplete: 'off', spellcheck: 'false', autofocus: 'true' %>
 
@@ -27,3 +27,7 @@
     <%= link_to 'Add New State', "/games/new/#{params[:new_id]}/states" %>
   </section>
 </aside>
+
+<div class="start-connecting-link">
+  <h3>start connecting button here</h3>
+</div>
