@@ -10,17 +10,8 @@ class GamesController < ApplicationController
   end
 
   def show
-    game_id = params[:game_id]
-    state_id = params[:state_id]
-
-    session[:game_id] = game_id
-    session[:state_id] = state_id
-
-    description = State.find(state_id).description
-    update_state_log(description)
-
     @log = @@state_log
-    @state_id = state_id
+    @state_id = session[:state_id]
   end
 
   def new
@@ -34,6 +25,12 @@ class GamesController < ApplicationController
       flash[:notice] = "No games with that name in here!"
       redirect_back fallback_location: { action: 'index' }
     else
+      session[:game_id] = new_game.id
+      session[:state_id] = new_game.initial_state_id
+
+      description = State.find(new_game.initial_state_id).description
+      update_state_log(description)
+
       redirect_to "/games/#{new_game.id}/states/#{new_game.initial_state_id}"
     end
   end
