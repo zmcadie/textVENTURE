@@ -19,6 +19,7 @@ class GamesController < ApplicationController
   end
 
   def new
+    #render new game form
   end
 
   def create
@@ -37,6 +38,10 @@ class GamesController < ApplicationController
   end
 
   def states
+    #render add states form
+  end
+
+  def states_create
     # add State.new to new game
     # view states' info
   end
