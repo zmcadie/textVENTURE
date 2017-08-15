@@ -116,4 +116,89 @@ class GamesController < ApplicationController
       :state_description
       )
   end
+
+  def system_message?(user_input)
+    if user_input[0, 2] == '--'
+      true
+    else
+      false
+    end
+  end
+
+  def slice_dashes(user_input)
+    user_input[0, 2] = ""
+    user_input
+  end
+
+  def handle_user_input(user_input)
+    clean_input = clean_user_input(user_input) # Remove whitespacing, make downcase
+
+    if system_message?(clean_input) # Is it a system-type message?
+      keyword = slice_dashes(clean_input) # If yes, slice off the dashes
+      command = "command_#{keyword}"
+      if respond_to? command # Does this command actually exist in games controller?
+        send command # If yes, then execute that command
+      else # If no, return error below
+        update_state_log("Sorry, that system command does not exist")
+      end
+    else # If not a system message, then it is a user action # So take their trigger and find the next_state_id
+      if aprox_trigger?(clean_input)
+        new_state_id = aprox_trigger?(clean_input)
+        session[:state_id] = new_state_id
+        description = State.find(new_state_id).description
+        logItem = {
+          type: 'game',
+          value: description
+        }
+        update_state_log(logItem)
+      else
+        state_id = session[:state_id]
+        logItem = {
+          type: 'system',
+          value: 'Sorry I don\'t know what that means'
+        }
+        update_state_log(logItem)
+      end
+    end
+
+    if not performed?
+      redirect_to "/games/#{session[:game_id]}"
+    end
+  end
+
+  def command_help
+    actions_helper
+  end
+
+  def command_quit
+    reset_session
+    @@state_log = []
+    redirect_to "/"
+  end
+
+  def actions_helper
+    available_actions = ""
+    Action.where({ state_id: session['state_id'] }).find_each do |trigger|
+      available_actions += trigger.trigger + " "
+    end
+    actions_list = available_actions.strip.split.join(", ")
+    action = "Maybe try one of: #{actions_list}"
+    logItem = {
+      type: 'system',
+      value: action
+    }
+    update_state_log(logItem)
+    action
+  end
+
+  def aprox_trigger?(user_input)
+    next_state_id = nil
+    Action.where({ state_id: session['state_id'] }).find_each do |action|
+      trigger_words = action.trigger.split
+      if trigger_words.any? { |word| user_input.include?(word) }
+        next_state_id = action.result_id
+      end
+    end
+    next_state_id
+  end
 end
