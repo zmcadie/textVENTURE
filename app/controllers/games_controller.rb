@@ -138,7 +138,7 @@ class GamesController < ApplicationController
         update_state_log("Sorry, that system command does not exist")
       end
     else # If not a system message, then it is a user action # So take their trigger and find the next_state_id
-      if approx_trigger?(clean_input)
+      if aprox_trigger?(clean_input)
         new_state_id = aprox_trigger?(clean_input)
         session[:state_id] = new_state_id
         description = State.find(new_state_id).description
@@ -159,12 +159,12 @@ class GamesController < ApplicationController
   end
 
   def command_index
-    session = nil
+    reset_session
     redirect_to "/"
   end
 
   def command_clear
-    session = nil
+    reset_session
     @@state_log = []
     redirect_to "/"
   end
