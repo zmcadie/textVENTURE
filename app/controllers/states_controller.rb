@@ -4,20 +4,6 @@ class StatesController < GamesController
     action = form_params
     update_state_log(action[:trigger])
     handle_user_input(action[:trigger])
-    clean_trigger = clean_user_input(form_params['trigger'])
-
-    if aprox_trigger?(clean_trigger)
-      new_state_id = aprox_trigger?(clean_trigger)
-      session[:state_id] = new_state_id
-      description = State.find(new_state_id).description
-      update_state_log(description)
-    else
-      state_id = session[:state_id]
-      update_state_log('Sorry I don\'t know what that means')
-    end
-    if not performed?
-      redirect_to "/games/#{session[:game_id]}/states/#{session[:state_id]}"
-    end
   end
 
   private
