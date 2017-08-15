@@ -92,4 +92,11 @@ class GamesController < ApplicationController
       :beginning_state
       )
   end
+
+  def new_state_params
+    params.require(:add_states).permit(
+      :state_name,
+      :state_description
+      )
+  end
 end
