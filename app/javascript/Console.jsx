@@ -4,7 +4,7 @@ class Console extends Component {
   render() {
 
     const logs = this.props.log.map((log, i) => {
-      return <div key={i}>{log}</div>
+      return <div className={`${log.type}-log`} key={i}>{log.value}</div>
     })
 
     return(

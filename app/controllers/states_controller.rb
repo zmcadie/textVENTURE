@@ -2,7 +2,11 @@ class StatesController < GamesController
 
   def update
     action = form_params
-    update_state_log(action[:trigger])
+    logItem = {
+      type: 'user',
+      value: ">> #{action[:trigger]}"
+    }
+    update_state_log(logItem)
     clean_trigger = clean_user_input(form_params['trigger'])
 
     if clean_trigger == 'help'
@@ -12,10 +16,18 @@ class StatesController < GamesController
       new_state_id = aprox_trigger?(clean_trigger)
       session[:state_id] = new_state_id
       description = State.find(new_state_id).description
-      update_state_log(description)
+      logItem = {
+        type: 'game',
+        value: description
+      }
+      update_state_log(logItem)
     else
       state_id = session[:state_id]
-      update_state_log('Sorry I don\'t know what that means')
+      logItem = {
+        type: 'system',
+        value: 'Sorry I don\'t know what that means'
+      }
+      update_state_log(logItem)
     end
 
     redirect_to "/games/#{session[:game_id]}"
@@ -40,7 +52,11 @@ class StatesController < GamesController
       available_actions += trigger.trigger + " "
     end
     action = "Maybe try: #{available_actions}"
-    update_state_log(action)
+    logItem = {
+      type: 'system',
+      value: action
+    }
+    update_state_log(logItem)
     action
   end
 
