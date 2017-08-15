@@ -19,11 +19,11 @@
     <header>
       <h2>States</h2>
     </header>
-    <ul>
       <%= State.where(game_id: params[:new_id]).find_each do |state| %>
-        <%= link_to state.name, "/games/new/#{params[:new_id]}/states/#{state.id}/connections" %>
+        <ul>
+          <%= link_to state.name, "/games/new/#{params[:new_id]}/states/#{state.id}/connections" %>
+        </ul>
       <% end %>
-    </ul>
     <%= link_to 'Add New State', "/games/new/#{params[:new_id]}/states" %>
   </section>
 </aside>
@@ -32,11 +32,11 @@
   <header>Existing connections for this state</header>
     <%= Action.where(state_id: params[:state_id]).find_each do |action| %>
       <ul>
-        <%= State.find_by(id: params[:state_id]).name %>
+        <strong><%= State.find_by(id: params[:state_id]).name %></strong>
         connects to
-        <%= State.find_by(id: action.result_id).name %>
+        <strong><%= State.find_by(id: action.result_id).name %></strong>
         with
-        <%= action.trigger %>
+        <strong><%= action.trigger %></strong>
       </ul>
     <% end %>
 </section>

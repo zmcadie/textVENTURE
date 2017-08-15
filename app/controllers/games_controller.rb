@@ -54,7 +54,6 @@ class GamesController < ApplicationController
     #show each state's info
   end
 
-
   def connections
     # first view for creating connections
   end
