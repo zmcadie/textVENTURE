@@ -1,1 +1,28 @@
-<h1>add actions form here</h1>
+<h2>How Do They Connect?</h2>
+
+<section class="new-action-form">
+  <div id="add-action-form">
+    <%= form_for :new_action, url: "/games/new/#{params[:new_id]}/states/#{params[:state_id]}/connections", method: 'POST' do |f| %>
+      get from
+      <%= State.find_by(id: params[:state_id]).name %>
+      to
+      <%= f.select :second_state, options_from_collection_for_select(State.where(game_id: params[:new_id]), :id, :name) %>
+      with
+      <%= f.text_field :trigger_word, placeholder: 'ex. right, left' %>
+    <% end %>
+  </div>
+</section>
+
+<aside id="states-sidebar">
+  <section>
+    <header>
+      <h2>States</h2>
+    </header>
+    <ul>
+      <%= State.where(game_id: params[:new_id]).find_each do |state| %>
+        <%= link_to state.name, "/games/new/#{params[:new_id]}/states/#{state.id}/connections" %>
+      <% end %>
+    </ul>
+    <%= link_to 'Add New State', "/games/new/#{params[:new_id]}/states" %>
+  </section>
+</aside>
