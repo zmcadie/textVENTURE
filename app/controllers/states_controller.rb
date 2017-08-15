@@ -11,6 +11,8 @@ class StatesController < GamesController
     elsif aprox_trigger?(clean_trigger)
       new_state_id = aprox_trigger?(clean_trigger)
       session[:state_id] = new_state_id
+      description = State.find(new_state_id).description
+      update_state_log(description)
     else
       state_id = session[:state_id]
       update_state_log('Sorry I don\'t know what that means')
