@@ -56,6 +56,14 @@ class GamesController < ApplicationController
 
 
   def connections
+    # first view for creating connections
+  end
+
+  def connections_show
+   # view for adding actions to states (form)
+  end
+
+  def create_connections
     # add actions to states
   end
 
