@@ -158,12 +158,7 @@ class GamesController < ApplicationController
     actions_helper
   end
 
-  def command_index
-    reset_session
-    redirect_to "/"
-  end
-
-  def command_clear
+  def command_quit
     reset_session
     @@state_log = []
     redirect_to "/"
