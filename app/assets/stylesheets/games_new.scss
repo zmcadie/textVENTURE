@@ -1,0 +1,49 @@
+section {
+  form {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    margin: 2vh;
+    text-align: left;
+
+    input#new_game_game_title,
+    input#new_game_state_name {
+      background-color: black;
+      border: 0.6vh solid white;
+      color: white;
+      font-family: inherit;
+      font-size: 3.5vh;
+      height: 7vh;
+      margin: 1vh;
+      width: 30vw;
+    }
+    input#new_game_game_title:focus,
+    input#new_game_state_name:focus {
+      outline: none;
+    }
+    textarea#new_game_beginning_state {
+      background-color: black;
+      border: 0.6vh solid white;
+      color: white;
+      font-family: inherit;
+      font-size: 3.5vh;
+      height: 20vh;
+      margin: 1vh;
+      width: 30vw;
+    }
+    input[value="Start"] {
+      background-color: black;
+      border: 0;
+      color: white;
+      font-family: inherit;
+      font-size: 4vh;
+      height: 7vh;
+      margin-top: 1vh;
+      width: 13vw;
+    }
+    input[value="Start"]:hover {
+      background-color: white;
+      color: black;
+    }
+  }
+}
