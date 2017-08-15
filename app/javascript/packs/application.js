@@ -16,7 +16,6 @@ import PropTypes from 'prop-types'
 import Console from '../Console.jsx'
 
 document.addEventListener('DOMContentLoaded', () => {
-  debugger
   const node = document.getElementById('log')
   const data = JSON.parse(node.getAttribute('data'))
 
