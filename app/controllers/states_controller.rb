@@ -18,7 +18,7 @@ class StatesController < GamesController
       update_state_log('Sorry I don\'t know what that means')
     end
 
-    redirect_to "/games/#{session[:game_id]}/states/#{session[:state_id]}"
+    redirect_to "/games/#{session[:game_id]}"
   end
 
   private
