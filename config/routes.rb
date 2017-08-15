@@ -13,7 +13,6 @@ Rails.application.routes.draw do
   post '/games/new/:new_id/states/:state_id/connections/:connection_id' => 'games#connections'
 
   get '/games/:game_id' => 'games#show'
-  get 'games/:game_id/states/:state_id' => 'states#show'
   post '/' => 'states#update'
   post '/games' => 'games#select'
 end
