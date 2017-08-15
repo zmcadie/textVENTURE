@@ -14,7 +14,6 @@ Rails.application.routes.draw do
   get '/games/new/:new_id/states/:state_id' => 'games#states_show'
 
   get '/games/:game_id' => 'games#show'
-  get 'games/:game_id/states/:state_id' => 'states#show'
   post '/' => 'states#update'
   post '/games' => 'games#select'
 end
