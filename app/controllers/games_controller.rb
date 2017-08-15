@@ -49,6 +49,11 @@ class GamesController < ApplicationController
     end
   end
 
+  def states_show
+    #show each state's info
+  end
+
+
   def connections
     # add actions to states
   end
