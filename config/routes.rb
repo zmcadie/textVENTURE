@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   post '/games/new' => 'games#create'
   # form for adding states to game
   get '/games/:new_id/states' => 'games#states'
-  post '/games/:new_id/states' => 'games#states'
+  post '/games/:new_id/states' => 'games#states_create'
   # view for individual states already created (sidebar links)
   get '/games/:new_id/states/:state_id' => 'games#states'
   # form for adding actions to states via 'connections'
