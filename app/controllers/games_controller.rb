@@ -112,4 +112,20 @@ class GamesController < ApplicationController
       :state_description
       )
   end
+
+  def system_message?(user_input)
+    if user_input[0, 2] == '--'
+      true
+    else
+      false
+    end
+  end
+
+  def slice_dashes(user_input)
+    user_input[0, 2] = ""
+    user_input
+  end
+
+
 end
+
