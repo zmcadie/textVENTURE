@@ -1,1 +1,7 @@
-<h2>show the state info</h2>
+<section>
+  <div class="state-info">
+    <% @state = State.find_by(game_id: params[:new_id], id: params[:state_id]) %>
+    <h2><%= @state.name %></h2>
+    <p><%= @state.description %></p>
+  </div>
+</section>
