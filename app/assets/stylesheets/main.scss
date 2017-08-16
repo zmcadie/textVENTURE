@@ -6,9 +6,11 @@ body{
   font-family: 'Roboto Mono', monospace;
 
   header {
-  display: inline;
+  display: flex;
   position: relative;
   text-align: left;
+  justify-content: space-between;
+  align-items: baseline;
 
     h1 {
       margin-left: 2vw;
