@@ -1,18 +1,19 @@
 <h2>Create a New Game</h2>
+<div class="container">
+  <section>
+    <div id="new-game-form">
+      <%= form_for :new_game, url: "/games/new", method: 'POST' do |f| %>
+        <%= f.label :game_title %>
+        <%= f.text_field :game_title, autocomplete: 'off', spellcheck: 'false', autofocus: 'true' %>
 
-<section>
-  <div id="new-game-form">
-    <%= form_for :new_game, url: "/games/new", method: 'POST' do |f| %>
-      <%= f.label :game_title %>
-      <%= f.text_field :game_title, autocomplete: 'off', spellcheck: 'false', autofocus: 'true' %>
+        <%= f.label :state_name %>
+        <%= f.text_field :state_name, autocomplete: 'off', spellcheck: 'false' %>
 
-      <%= f.label :state_name %>
-      <%= f.text_field :state_name, autocomplete: 'off', spellcheck: 'false' %>
+        <%= f.label :beginning_state %>
+        <%= f.text_area :beginning_state, autocomplete: 'off' %>
 
-      <%= f.label :beginning_state %>
-      <%= f.text_area :beginning_state, autocomplete: 'off' %>
-
-      <%= f.submit "Start"%>
-    <% end %>
-  </div>
-</section>
+        <%= f.submit "Start"%>
+      <% end %>
+    </div>
+  </section>
+</div>
