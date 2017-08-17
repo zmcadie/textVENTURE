@@ -1,6 +1,7 @@
 class StatesController < GamesController
 
   def update
+    # takes in user action, redirects to next state
     action = form_params
     logItem = {
       type: 'user',
