@@ -1,16 +1,15 @@
 
 .notice {
-  margin-right: 2vw;
-  color: tomato;
-  padding: 0.5vh;
-  border: 0.3vh solid tomato;
   animation:notice 1s 1;
   -webkit-animation:notice 1s 1;
   animation-fill-mode: forwards;
-
   animation-delay:3s;
   -webkit-animation-delay:2s;
   -webkit-animation-fill-mode: forwards;
+  border: 0.3vh solid tomato;
+  color: tomato;
+  margin-right: 2vw;
+  padding: 0.5vh;
 }
 
 @keyframes notice {
