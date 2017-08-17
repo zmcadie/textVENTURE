@@ -19,10 +19,10 @@
   <h2>Add to the Adventure</h2>
       <%= form_for :add_states, url: "/games/new/#{params[:new_id]}/states", method: 'POST' do |f| %>
         <%= f.label :state_name %>
-        <%= f.text_field :state_name, autocomplete: 'off', spellcheck: 'false', autofocus: 'true' %>
+        <%= f.text_field :state_name, autocomplete: 'off', spellcheck: 'false', autofocus: 'true', required: 'true' %>
 
         <%= f.label :state_description %>
-        <%= f.text_area :state_description, autocomplete: 'off' %>
+        <%= f.text_area :state_description, autocomplete: 'off', required: 'true' %>
 
         <%= f.submit "Create State"%>
       <% end %>
