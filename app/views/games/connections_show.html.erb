@@ -27,6 +27,9 @@
           <%= f.text_field :trigger_word, placeholder: 'ex. right, left', autocomplete: 'off' %>
           <%= f.submit 'Create Connection'%>
         <% end %>
+        <%= form_for :save_game, url: "/games/new/#{params[:new_id]}", method: 'POST' do |f| %>
+        <%= f.submit 'Submit Complete Game' %>
+      <% end %>
       </div>
     </section>
 
