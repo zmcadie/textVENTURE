@@ -166,7 +166,11 @@ class GamesController < ApplicationController
       if respond_to? command # Does this command actually exist in games controller?
         send command # If yes, then execute that command
       else # If no, return error below
-        update_state_log("Sorry, that system command does not exist")
+        logItem = {
+          type: 'game',
+          value: 'Sorry, that system command does not exist'
+        }
+        update_state_log(logItem)
       end
     else # If not a system message, then it is a user action # So take their trigger and find the next_state_id
       if aprox_trigger?(clean_input)
