@@ -1,42 +1,44 @@
-<h2>How Do They Connect?</h2>
+<h2>Connect the States</h2>
+<div class="container">
 
-<section class="new-action-form">
-  <div id="add-action-form">
-    <%= form_for :new_action, url: "/games/new/#{params[:new_id]}/states/#{params[:state_id]}/connections", method: 'POST' do |f| %>
-      get from
-      <%= State.find_by(id: params[:state_id]).name %>
-      to
-      <%= f.select :second_state, options_from_collection_for_select(State.where(game_id: params[:new_id]), :id, :name) %>
-      with
-      <%= f.text_field :trigger_word, placeholder: 'ex. right, left', autocomplete: 'off' %>
-      <%= f.submit %>
-    <% end %>
-  </div>
-</section>
+  <aside id="states-sidebar">
+    <section class="states-sidebar">
+      <header class="sidebar-header">
+        <h3>Existing States:</h3>
+      </header>
+      <div class="states-list">
+        <%= State.where(game_id: params[:new_id]).find_each do |state| %>
+          <ul>
+            <%= link_to state.name, "/games/new/#{params[:new_id]}/states/#{state.id}/connections" %>
+          </ul>
+        <% end %>
+      </div>
+      <%= link_to 'Add New State', "/games/new/#{params[:new_id]}/states", class: "add-new-state-link" %>
+    </section>
+  </aside>
 
-<aside id="states-sidebar">
-  <section>
-    <header>
-      <h2>States</h2>
-    </header>
-      <%= State.where(game_id: params[:new_id]).find_each do |state| %>
-        <ul>
-          <%= link_to state.name, "/games/new/#{params[:new_id]}/states/#{state.id}/connections" %>
-        </ul>
-      <% end %>
-    <%= link_to 'Add New State', "/games/new/#{params[:new_id]}/states" %>
-  </section>
-</aside>
+    <section class="new-action-form">
+      <div id="add-action-form">
+        <%= form_for :new_action, url: "/games/new/#{params[:new_id]}/states/#{params[:state_id]}/connections", method: 'POST' do |f| %>
+          <p class="current-state"><%= State.find_by(id: params[:state_id]).name %></p>
+          leads to
+          <%= f.select :second_state, options_from_collection_for_select(State.where(game_id: params[:new_id]), :id, :name) %>
+          with
+          <%= f.text_field :trigger_word, placeholder: 'ex. right, left', autocomplete: 'off' %>
+          <%= f.submit 'Create Connection'%>
+        <% end %>
+      </div>
+    </section>
 
-<section id="existing-connections">
-  <header>Existing connections for this state</header>
-    <%= Action.where(state_id: params[:state_id]).find_each do |action| %>
-      <ul>
-        <strong><%= State.find_by(id: params[:state_id]).name %></strong>
-        connects to
-        <strong><%= State.find_by(id: action.result_id).name %></strong>
-        with
-        <strong>"<%= action.trigger %>"</strong>
-      </ul>
-    <% end %>
-</section>
+    <section id="existing-connections">
+      <header>Existing connections for this state:</header>
+        <%= Action.where(state_id: params[:state_id]).find_each do |action| %>
+          <ul>
+            <i><%= State.find_by(id: params[:state_id]).name %></i> leads to
+            <i><%= State.find_by(id: action.result_id).name %></i>
+            with
+            <i>"<%= action.trigger %>"</i>
+          </ul>
+        <% end %>
+    </section>
+</div>
