@@ -24,12 +24,17 @@ class GamesController < ApplicationController
     @game = Game.new(name: game_name)
     if @game.save
       @initial_state = State.new(name: new_game_params[:state_name], description: new_game_params[:beginning_state], game_id: @game.id)
-      @initial_state.save
-      @game.initial_state_id = @initial_state.id
-      redirect_to "/games/new/#{@game.id}/states"
+      if @initial_state.save
+        @game.initial_state_id = @initial_state.id
+        @game.save
+        redirect_to "/games/new/#{@game.id}/states"
+      else
+        redirect_back fallback_location: { action: 'new'}
+        flash[:notice] = 'something went wrong with saving the state!'
+      end
     else
       redirect_back fallback_location: { action: 'new'}
-      flash[:notice] = 'something went wrong!'
+      flash[:notice] = 'something went wrong with creating the game!'
     end
   end
 
@@ -45,7 +50,8 @@ class GamesController < ApplicationController
     if @state.save
       redirect_back fallback_location: { action: 'states'}
     else
-      flash[:notice] = 'something went wrong!'
+      redirect_back fallback_location: { action: 'states'}
+      flash[:notice] = 'something went wrong saving this state!'
     end
   end
 
@@ -53,9 +59,23 @@ class GamesController < ApplicationController
     #show each state's info
   end
 
-
   def connections
+    # first view for creating connections
+  end
+
+  def connections_show
+   # view for adding actions to states (form)
+  end
+
+  def create_connections
     # add actions to states
+    @action = Action.new(state_id: params[:state_id], trigger: new_action_params[:trigger_word], result_id: new_action_params[:second_state])
+    if @action.save
+      redirect_back fallback_location: { action: 'connections_show'}
+      flash[:notice] = "new action added to #{State.find_by(id: @action.state_id).name}!"
+    else
+      flash[:notice] = 'something went wrong!'
+    end
   end
 
   def select
@@ -117,6 +137,13 @@ class GamesController < ApplicationController
       )
   end
 
+  def new_action_params
+    params.require(:new_action).permit(
+      :second_state,
+      :trigger_word
+      )
+  end
+
   def system_message?(user_input)
     if user_input[0, 2] == '--'
       true
@@ -139,7 +166,11 @@ class GamesController < ApplicationController
       if respond_to? command # Does this command actually exist in games controller?
         send command # If yes, then execute that command
       else # If no, return error below
-        update_state_log("Sorry, that system command does not exist")
+        logItem = {
+          type: 'game',
+          value: 'Sorry, that system command does not exist'
+        }
+        update_state_log(logItem)
       end
     else # If not a system message, then it is a user action # So take their trigger and find the next_state_id
       if aprox_trigger?(clean_input)

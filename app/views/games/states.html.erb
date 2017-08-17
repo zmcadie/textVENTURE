@@ -1,33 +1,35 @@
-<h2>Add to the Adventure</h2>
+<div class="container">
+  <aside id="states-sidebar">
+    <section class="states-sidebar">
+      <header class="sidebar-header">
+        <h3>Existing States:</h3>
+      </header>
+      <div class="states-list">
+        <%= State.where(game_id: params[:new_id]).find_each do |state| %>
+            <ul>
+              <%= link_to state.name, "/games/new/#{params[:new_id]}/states/#{state.id}" %>
+            </ul>
+        <% end %>
+      </div>
+    </section>
 
-<section class="new-states-form">
-  <div id="add-states-form">
-    <%= form_for :add_states, url: "/games/new/#{params[:new_id]}/states", method: 'POST' do |f| %>
-      <%= f.label :state_name %>
-      <%= f.text_field :state_name, autocomplete: 'off', spellcheck: 'false', autofocus: 'true' %>
+  </aside>
 
-      <%= f.label :state_description %>
-      <%= f.text_area :state_description, autocomplete: 'off' %>
+  <section class="new-states-form">
+  <h2>Add to the Adventure</h2>
+      <%= form_for :add_states, url: "/games/new/#{params[:new_id]}/states", method: 'POST' do |f| %>
+        <%= f.label :state_name %>
+        <%= f.text_field :state_name, autocomplete: 'off', spellcheck: 'false', autofocus: 'true', required: 'true' %>
 
-      <%= f.submit %>
-    <% end %>
-  </div>
-</section>
+        <%= f.label :state_description %>
+        <%= f.text_area :state_description, autocomplete: 'off', required: 'true' %>
 
-<aside id="states-sidebar">
-  <section>
-    <header>
-      <h2>States</h2>
-    </header>
-    <ul>
-      <%= State.where(game_id: params[:new_id]).find_each do |state| %>
-        <%= link_to state.name, "/games/new/#{params[:new_id]}/states/#{state.id}" %>
+        <%= f.submit "Create State"%>
       <% end %>
-    </ul>
-    <%= link_to 'Add New State', "/games/new/#{params[:new_id]}/states" %>
   </section>
-</aside>
 
-<div class="start-connecting-link">
-  <h3>start connecting button here</h3>
+  <div>
+    <%= link_to 'Start adding connections', "/games/new/#{params[:new_id]}/states/connections", class: "start-connecting-link" %>
+ </div>
 </div>
+
