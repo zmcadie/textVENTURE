@@ -1,0 +1,80 @@
+h3 {
+  text-align: center;
+}
+
+section.buffer-1,
+section.buffer-2 {
+  height: 40vh;
+  width: 25vw;
+}
+
+section.new-action-form {
+  div#add-action-form {
+    form {
+      font-size: 4vh;
+      p.current-state {
+        font-style: italic;
+        margin: 0;
+        margin-bottom: 2vh;
+      }
+      select {
+        background-color: grey;
+        border: 0;
+        border-radius: 0;
+        color: white;
+        cursor: pointer;
+        font-family: inherit;
+        font-size: inherit;
+        margin-bottom: 3vh;
+        margin-top: 3vh;
+      }
+      select:focus{
+        outline: none;
+      }
+      select:hover {
+        background-color: #a0a0a0;
+      }
+      input#new_action_trigger_word {
+        background-color: black;
+        border: 0.6vh solid white;
+        color: white;
+        font-family: inherit;
+        font-size: 4.5vh;
+        height: 7vh;
+        margin-top: 3vh;
+        text-align: center;
+      }
+      input#new_action_trigger_word:focus {
+        outline: none;
+      }
+      input#new_action_trigger_word::placeholder {
+        color: #a0a0a0;
+        text-align: center;
+      }
+      input[value="Create Connection"] {
+        background-color: grey;
+        border: 0;
+        color: white;
+        cursor: pointer;
+        font-family: inherit;
+        font-size: 3.5vh;
+        margin-top: 4vh;
+      }
+      input[value="Create Connection"]:hover {
+        background-color: white;
+        color: black;
+      }
+    }
+  }
+}
+section#existing-connections {
+  height: 42vh;
+  width: 25vw;
+  p.current-state {
+    font-style: italic;
+  }
+  h3 {
+    font-size: 3vh;
+  }
+}
+

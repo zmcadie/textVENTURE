@@ -1,0 +1,46 @@
+<h2></h2>
+<div class="container">
+
+  <aside id="states-sidebar">
+    <section class="states-sidebar">
+      <header class="sidebar-header">
+        <h3>Existing States:</h3>
+      </header>
+      <div class="states-list">
+        <%= State.where(game_id: params[:new_id]).find_each do |state| %>
+          <ul>
+            <%= link_to state.name, "/games/new/#{params[:new_id]}/states/#{state.id}/connections" %>
+          </ul>
+        <% end %>
+      </div>
+    </section>
+      <%= link_to 'Add New State', "/games/new/#{params[:new_id]}/states", class: "add-new-state-link" %>
+  </aside>
+
+    <section class="new-action-form">
+      <div id="add-action-form">
+        <%= form_for :new_action, url: "/games/new/#{params[:new_id]}/states/#{params[:state_id]}/connections", method: 'POST' do |f| %>
+          <p class="current-state"><%= State.find_by(id: params[:state_id]).name %></p>
+          leads to
+          <%= f.select :second_state, options_from_collection_for_select(State.where(game_id: params[:new_id]), :id, :name) %>
+          with
+          <%= f.text_field :trigger_word, placeholder: 'ex. right, left', autocomplete: 'off' %>
+          <%= f.submit 'Create Connection'%>
+        <% end %>
+      </div>
+    </section>
+
+    <section id="existing-connections">
+      <header>
+        <h3>Existing connections for this state:</h3>
+      </header>
+        <%= Action.where(state_id: params[:state_id]).find_each do |action| %>
+          <ul>
+            <i><%= State.find_by(id: params[:state_id]).name %></i> leads to
+            <i><%= State.find_by(id: action.result_id).name %></i>
+            with
+            <i>"<%= action.trigger %>"</i>
+          </ul>
+        <% end %>
+    </section>
+</div>

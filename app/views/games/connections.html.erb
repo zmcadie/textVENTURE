@@ -1,1 +1,21 @@
-<h1>connections</h1>
+<h2>Start Adding Connections</h2>
+<h3>Select a state from the sidebar to get started</h3>
+<div class="container">
+  <aside id="states-sidebar">
+    <section class="states-sidebar">
+      <header class="sidebar-header">
+        <h3>States</h3>
+      </header>
+      <div class="states-list connections-start">
+        <%= State.where(game_id: params[:new_id]).find_each do |state| %>
+          <ul>
+            <%= link_to state.name, "/games/new/#{params[:new_id]}/states/#{state.id}/connections" %>
+          </ul>
+        <% end %>
+      </div>
+      <%= link_to 'Add New State', "/games/new/#{params[:new_id]}/states", class: "add-new-state-link" %>
+    </section>
+  </aside>
+  <section class="buffer-1"></section>
+  <section class="buffer-2"></section>
+</div>
