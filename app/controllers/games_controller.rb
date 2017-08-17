@@ -99,12 +99,6 @@ class GamesController < ApplicationController
     end
   end
 
-  # Remove whitespacing, make downcase
-  def clean_user_input(input)
-    cleansed_input = input.strip.downcase.split.join(" ")
-    cleansed_input
-  end
-
   # push new state description to history aka state_log
   def update_state_log(input)
     @@state_log.push(input)
@@ -119,19 +113,33 @@ class GamesController < ApplicationController
     index.push('Simply type the name of the game you wish to play, and hit enter')
   end
 
+  # Remove whitespacing, make downcase
+  def clean_user_input(input)
+    cleansed_input = input.strip.downcase.split.join(" ")
+    cleansed_input
+  end
+
   # is this a system message? (or an action trigger word)
   def system_message?(user_input)
-    if user_input[0, 2] == '--'
-      true
-    else
-      false
-    end
+    user_input[0, 2] == '--'
   end
 
   # remove dashes prefixing all system messages
   def slice_dashes(user_input)
     user_input[0, 2] = ""
     user_input
+  end
+
+  # does any part of the sentence typed in by the user contain an actrion trigger word?
+  def aprox_trigger?(user_input)
+    next_state_id = nil
+    Action.where({ state_id: session['state_id'] }).find_each do |action|
+      trigger_words = action.trigger.split
+      if trigger_words.any? { |word| user_input.include?(word) }
+        next_state_id = action.result_id
+      end
+    end
+    next_state_id
   end
 
   # method called in update#states_controller
@@ -179,7 +187,7 @@ class GamesController < ApplicationController
 
   # redirected here when "--help" system message is detected
   def command_help
-    actions_helper
+    display_possible_actions
   end
 
   # redirected here when "--quit" system message is detected
@@ -190,7 +198,7 @@ class GamesController < ApplicationController
   end
 
   # returns a list of the possible actions a user could take in the given game state
-  def actions_helper
+  def display_possible_actions
     available_actions = ""
     Action.where({ state_id: session['state_id'] }).find_each do |trigger|
       available_actions += trigger.trigger + " "
@@ -203,18 +211,6 @@ class GamesController < ApplicationController
     }
     update_state_log(logItem)
     action
-  end
-
-  # does any part of the sentence typed in by the user contain an actrion trigger word?
-  def aprox_trigger?(user_input)
-    next_state_id = nil
-    Action.where({ state_id: session['state_id'] }).find_each do |action|
-      trigger_words = action.trigger.split
-      if trigger_words.any? { |word| user_input.include?(word) }
-        next_state_id = action.result_id
-      end
-    end
-    next_state_id
   end
 
   # FORMS #
