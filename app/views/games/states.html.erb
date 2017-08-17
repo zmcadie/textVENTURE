@@ -16,7 +16,8 @@
   </aside>
 
   <section class="new-states-form">
-  <h2>Add to the Adventure</h2>
+    <h2>Add to the Adventure</h2>
+    <div class="add-states-form">
       <%= form_for :add_states, url: "/games/new/#{params[:new_id]}/states", method: 'POST' do |f| %>
         <%= f.label :state_name %>
         <%= f.text_field :state_name, autocomplete: 'off', spellcheck: 'false', autofocus: 'true', required: 'true' %>
@@ -26,6 +27,10 @@
 
         <%= f.submit "Create State"%>
       <% end %>
+      <%= form_for :save_game, url: "/games/new/#{params[:new_id]}", method: 'POST' do |f| %>
+        <%= f.submit 'Submit Complete Game' %>
+      <% end %>
+    </div>
   </section>
 
   <div>

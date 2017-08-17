@@ -78,6 +78,19 @@ class GamesController < ApplicationController
     end
   end
 
+  def save_game
+    # toggle publish to true
+    @game = Game.find(params[:new_id])
+    @game.publish = true
+    if @game.save
+      redirect_to "/"
+      flash[:notice] = "your game has been saved!"
+    else
+      redirect_back fallback_location: { action: 'states'}
+      flash[:notice] = "there was a problem submitting your game!"
+    end
+  end
+
   def select
     game_name = game_selection_form[:game_name].strip
     new_game = Game.find_by name: game_name
@@ -110,7 +123,7 @@ class GamesController < ApplicationController
 
   def display_games_index
     index = ['Welcome to textVENTURE! Please choose a game from the selection below:']
-    Game.all.each do |game|
+    Game.where(publish: true).find_each do |game|
       index.push(game.name)
     end
     index.push('Simply type the name of the game you wish to play, and hit enter')
