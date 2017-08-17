@@ -1,0 +1,21 @@
+section.new-states-form {
+  div.add-states-form {
+    display: inline-flex;
+    flex-direction: column;
+
+    input[value="Submit Complete Game"] {
+      background-color: #97c1a8;
+      border: none;
+      color: white;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 3vh;
+      height: 7vh;
+      margin-top: 1.5vh;
+      width: 30vw;
+    }
+    input[value="Submit Complete Game"]:hover {
+      background-color: #8ecca7;
+    }
+  }
+}
