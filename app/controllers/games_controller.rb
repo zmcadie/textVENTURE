@@ -80,6 +80,15 @@ class GamesController < ApplicationController
 
   def save_game
     # toggle publish to true
+    @game = Game.find(params[:new_id])
+    @game.publish = true
+    if @game.save
+      redirect_to "/"
+      flash[:notice] = "your game has been saved!"
+    else
+      redirect_back fallback_location: { action: 'states'}
+      flash[:notice] = "there was a problem submitting your game!"
+    end
   end
 
   def select
