@@ -2,6 +2,7 @@ class GamesController < ApplicationController
   @@state_log = []
 
   def index
+    # display games index list
     @games = display_games_index
   end
 
@@ -75,6 +76,7 @@ class GamesController < ApplicationController
   end
 
   def select
+    # select which game to play from games index list
     game_name = game_selection_form[:game_name].strip
     new_game = Game.find_by name: game_name
     if new_game == nil
