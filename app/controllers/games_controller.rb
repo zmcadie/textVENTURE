@@ -24,13 +24,17 @@ class GamesController < ApplicationController
     @game = Game.new(name: game_name)
     if @game.save
       @initial_state = State.new(name: new_game_params[:state_name], description: new_game_params[:beginning_state], game_id: @game.id)
-      @initial_state.save
-      @game.initial_state_id = @initial_state.id
-      @game.save
-      redirect_to "/games/new/#{@game.id}/states"
+      if @initial_state.save
+        @game.initial_state_id = @initial_state.id
+        @game.save
+        redirect_to "/games/new/#{@game.id}/states"
+      else
+        redirect_back fallback_location: { action: 'new'}
+        flash[:notice] = 'something went wrong with saving the state!'
+      end
     else
       redirect_back fallback_location: { action: 'new'}
-      flash[:notice] = 'something went wrong!'
+      flash[:notice] = 'something went wrong with creating the game!'
     end
   end
 
@@ -46,7 +50,8 @@ class GamesController < ApplicationController
     if @state.save
       redirect_back fallback_location: { action: 'states'}
     else
-      flash[:notice] = 'something went wrong!'
+      redirect_back fallback_location: { action: 'states'}
+      flash[:notice] = 'something went wrong saving this state!'
     end
   end
 
