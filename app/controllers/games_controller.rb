@@ -99,15 +99,18 @@ class GamesController < ApplicationController
     end
   end
 
+  # Remove whitespacing, make downcase
   def clean_user_input(input)
     cleansed_input = input.strip.downcase.split.join(" ")
     cleansed_input
   end
 
+  # push new state description to history aka state_log
   def update_state_log(input)
     @@state_log.push(input)
   end
 
+  # displays a list of the names of published games
   def display_games_index
     index = ['Welcome to textVENTURE! Please choose a game from the selection below:']
     Game.all.each do |game|
@@ -116,34 +119,7 @@ class GamesController < ApplicationController
     index.push('Simply type the name of the game you wish to play, and hit enter')
   end
 
-  def game_selection_form
-    params.require(:user_input).permit(
-      :game_name
-    )
-  end
-
-  def new_game_params
-    params.require(:new_game).permit(
-      :game_title,
-      :state_name,
-      :beginning_state
-      )
-  end
-
-  def new_state_params
-    params.require(:add_states).permit(
-      :state_name,
-      :state_description
-      )
-  end
-
-  def new_action_params
-    params.require(:new_action).permit(
-      :second_state,
-      :trigger_word
-      )
-  end
-
+  # is this a system message? (or an action trigger word)
   def system_message?(user_input)
     if user_input[0, 2] == '--'
       true
@@ -152,20 +128,24 @@ class GamesController < ApplicationController
     end
   end
 
+  # remove dashes prefixing all system messages
   def slice_dashes(user_input)
     user_input[0, 2] = ""
     user_input
   end
 
+  # method called in update#states_controller
+  # determines if user input is an action trigger word or a system command
+  # updates state log and redirects accordingly
   def handle_user_input(user_input)
-    clean_input = clean_user_input(user_input) # Remove whitespacing, make downcase
+    clean_input = clean_user_input(user_input)
 
     if system_message?(clean_input) # Is it a system-type message?
       keyword = slice_dashes(clean_input) # If yes, slice off the dashes
       command = "command_#{keyword}"
       if respond_to? command # Does this command actually exist in games controller?
         send command # If yes, then execute that command
-      else # If no, return error below
+      else
         logItem = {
           type: 'game',
           value: 'Sorry, that system command does not exist'
@@ -197,16 +177,19 @@ class GamesController < ApplicationController
     end
   end
 
+  # redirected here when "--help" system message is detected
   def command_help
     actions_helper
   end
 
+  # redirected here when "--quit" system message is detected
   def command_quit
     reset_session
     @@state_log = []
     redirect_to "/"
   end
 
+  # returns a list of the possible actions a user could take in the given game state
   def actions_helper
     available_actions = ""
     Action.where({ state_id: session['state_id'] }).find_each do |trigger|
@@ -222,6 +205,7 @@ class GamesController < ApplicationController
     action
   end
 
+  # does any part of the sentence typed in by the user contain an actrion trigger word?
   def aprox_trigger?(user_input)
     next_state_id = nil
     Action.where({ state_id: session['state_id'] }).find_each do |action|
@@ -231,5 +215,34 @@ class GamesController < ApplicationController
       end
     end
     next_state_id
+  end
+
+  # FORMS #
+  def game_selection_form
+    params.require(:user_input).permit(
+      :game_name
+    )
+  end
+
+  def new_game_params
+    params.require(:new_game).permit(
+      :game_title,
+      :state_name,
+      :beginning_state
+      )
+  end
+
+  def new_state_params
+    params.require(:add_states).permit(
+      :state_name,
+      :state_description
+      )
+  end
+
+  def new_action_params
+    params.require(:new_action).permit(
+      :second_state,
+      :trigger_word
+      )
   end
 end
