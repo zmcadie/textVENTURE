@@ -1,4 +1,4 @@
-<h2>Connect the States</h2>
+<h2></h2>
 <div class="container">
 
   <aside id="states-sidebar">
@@ -13,8 +13,8 @@
           </ul>
         <% end %>
       </div>
-      <%= link_to 'Add New State', "/games/new/#{params[:new_id]}/states", class: "add-new-state-link" %>
     </section>
+      <%= link_to 'Add New State', "/games/new/#{params[:new_id]}/states", class: "add-new-state-link" %>
   </aside>
 
     <section class="new-action-form">
@@ -31,7 +31,9 @@
     </section>
 
     <section id="existing-connections">
-      <header>Existing connections for this state:</header>
+      <header>
+        <h3>Existing connections for this state:</h3>
+      </header>
         <%= Action.where(state_id: params[:state_id]).find_each do |action| %>
           <ul>
             <i><%= State.find_by(id: params[:state_id]).name %></i> leads to

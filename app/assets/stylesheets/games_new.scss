@@ -67,16 +67,16 @@ div.container {
   }
 
   aside#states-sidebar {
+    border: 0.6vh solid white;
+    position: relative;
+
     section.states-sidebar {
-      border: 0.6vh solid white;
       height: 42vh;
       margin: auto;
       margin-top: 2vh;
-      padding-left: 1vw;
-      padding-right: 1vw;
-      padding-bottom: 1vw;
-      position: relative;
       overflow-y: scroll;
+      margin-left: 1vw;
+      margin-right: 1vw;
       width: 15vw;
 
       header.sidebar-header {
@@ -90,7 +90,8 @@ div.container {
       }
 
       div.states-list {
-        margin-top: 5vh;
+        margin-bottom: 7vh;
+        margin-top: 6vh;
         ul {
         padding-left: 1vw;
         padding-right: 1vw;
@@ -104,21 +105,27 @@ div.container {
         }
       }
     }
-    a.add-new-state-link {
-      background-color: grey;
-      color: white;
-      margin-top: 1vw;
-      padding: 0.6vw;
-      text-decoration: none;
-      position: fixed;
-      white-space: nowrap;
-    }
-
-    a.add-new-state-link:hover {
-      background-color: white;
-      color: black;
-    }
   }
+  a.add-new-state-link {
+    background-color: grey;
+    bottom: 1vh;
+    color: white;
+    left: 1vw;
+    margin-top: 1vw;
+    padding: 0.6vw;
+    position: absolute;
+    right: 1vw;
+    text-align: center;
+    text-decoration: none;
+    white-space: nowrap;
+    width: 13.8vw;
+  }
+
+  a.add-new-state-link:hover {
+    background-color: white;
+    color: black;
+  }
+
 
   a.start-connecting-link {
     background-color: grey;

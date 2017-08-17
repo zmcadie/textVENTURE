@@ -1,25 +1,30 @@
-<section>
-  <div class="state-info">
-    <% @state = State.find_by(game_id: params[:new_id], id: params[:state_id]) %>
-    <h2><%= @state.name %></h2>
-    <p><%= @state.description %></p>
-  </div>
-</section>
+<div class="container state-show">
+  <aside id="states-sidebar">
+    <section class="states-sidebar">
+      <header class="sidebar-header">
+        <h3>States</h3>
+      </header>
+      <div class="states-list connections-start">
+        <%= State.where(game_id: params[:new_id]).find_each do |state| %>
+          <ul>
+            <%= link_to state.name, "/games/new/#{params[:new_id]}/states/#{state.id}" %>
+          </ul>
+        <% end %>
+      </div>
+      <%= link_to 'Add New State', "/games/new/#{params[:new_id]}/states", class: "add-new-state-link" %>
+    </section>
+  </aside>
 
-<aside id="states-sidebar">
   <section>
-    <header>
-      <h2>States</h2>
-    </header>
-      <%= State.where(game_id: params[:new_id]).find_each do |state| %>
-        <ul>
-          <%= link_to state.name, "/games/new/#{params[:new_id]}/states/#{state.id}" %>
-        </ul>
-      <% end %>
-    <%= link_to 'Add New State', "/games/new/#{params[:new_id]}/states" %>
+    <div class="state-info">
+      <% @state = State.find_by(game_id: params[:new_id], id: params[:state_id]) %>
+      <p class="state-name">Name of State: <i><%= @state.name %></i></p>
+      <p class="state-body-title">State Body: </p>
+      <p class="state-body"><%= @state.description %></p>
+    </div>
   </section>
-</aside>
 
-<div class="start-connecting-link">
-  <%= link_to 'Start adding connections', "/games/new/#{params[:new_id]}/states/connections" %>
+  <div class="start-connecting-link">
+    <%= link_to 'Start adding connections', "/games/new/#{params[:new_id]}/states/connections", class: "start-connecting-link" %>
+  </div>
 </div>
