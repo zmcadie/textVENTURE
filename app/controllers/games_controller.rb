@@ -3,10 +3,12 @@ class GamesController < ApplicationController
 
   def index
     # display games index list
+    @@state_log = []
     @games = display_games_index
   end
 
   def show
+    # render each new game state, along with history (state_log)
     @log = @@state_log
     @state_id = session[:state_id]
   end
