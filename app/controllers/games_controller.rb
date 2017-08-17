@@ -2,11 +2,7 @@ class GamesController < ApplicationController
   @@state_log = []
 
   def index
-    if session[:state_id]
-      redirect_to "/games/#{session[:game_id]}}"
-    else
-      @games = display_games_index
-    end
+    @games = display_games_index
   end
 
   def show
