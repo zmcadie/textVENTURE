@@ -1,0 +1,139 @@
+h2 {
+  text-align: center;
+}
+div.container {
+  align-items: center;
+  display: flex;
+  justify-content: space-evenly;
+  section {
+    form {
+      display: inline-flex;
+      flex-direction: column;
+      margin: auto;
+
+      input#new_game_game_title,
+      input#new_game_state_name,
+      input#add_states_state_name {
+        background-color: black;
+        border: 0.6vh solid white;
+        color: white;
+        font-family: inherit;
+        font-size: 3.5vh;
+        height: 7vh;
+        margin: 1vh;
+        width: 30vw;
+      }
+
+      input#new_game_game_title:focus,
+      input#new_game_state_name:focus,
+      input#add_states_state_name:focus,
+      textarea#new_game_beginning_state:focus,
+      textarea#add_states_state_description:focus {
+        outline: none;
+      }
+
+      textarea#new_game_beginning_state,
+      textarea#add_states_state_description {
+        background-color: black;
+        border: 0.6vh solid white;
+        color: white;
+        font-family: inherit;
+        font-size: 2.8vh;
+        height: 20vh;
+        margin: 1vh;
+        width: 30vw;
+      }
+
+      input[value="Start"],
+      input[value="Create State"] {
+        align-self: center;
+        background-color: grey;
+        border: 0;
+        color: white;
+        cursor: pointer;
+        font-family: inherit;
+        font-size: 3.5vh;
+        height: 7vh;
+        margin-top: 1vh;
+        width: 13vw;
+      }
+
+      input[value="Start"]:hover,
+      input[value="Create State"]:hover {
+        background-color: white;
+        color: black;
+      }
+    }
+  }
+
+  aside#states-sidebar {
+    section.states-sidebar {
+      border: 0.6vh solid white;
+      height: 42vh;
+      margin: auto;
+      margin-top: 2vh;
+      padding-left: 1vw;
+      padding-right: 1vw;
+      padding-bottom: 1vw;
+      position: relative;
+      overflow-y: scroll;
+      width: 15vw;
+
+      header.sidebar-header {
+        background-color: black;
+        position: fixed;
+        width: 15vw;
+
+        h3 {
+          margin: 0;
+        }
+      }
+
+      div.states-list {
+        margin-top: 5vh;
+        ul {
+        padding-left: 1vw;
+        padding-right: 1vw;
+          a {
+            color: white;
+            text-decoration: none;
+          }
+          a:hover {
+            opacity: .5;
+          }
+        }
+      }
+    }
+    a.add-new-state-link {
+      background-color: grey;
+      color: white;
+      margin-top: 1vw;
+      padding: 0.6vw;
+      text-decoration: none;
+      position: fixed;
+      white-space: nowrap;
+    }
+
+    a.add-new-state-link:hover {
+      background-color: white;
+      color: black;
+    }
+  }
+
+  a.start-connecting-link {
+    background-color: grey;
+    color: white;
+    margin: 1vw;
+    padding: 0.6vw;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  a.start-connecting-link:hover {
+    background-color: white;
+    color: black;
+  }
+}
+
+
+
+

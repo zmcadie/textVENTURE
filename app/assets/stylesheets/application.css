@@ -17,4 +17,6 @@
 @import 'states';
 @import 'games';
 @import 'flash_message';
+@import 'games_new';
+@import 'connections';
 
