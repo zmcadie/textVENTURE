@@ -123,7 +123,7 @@ class GamesController < ApplicationController
 
   def display_games_index
     index = ['Welcome to textVENTURE! Please choose a game from the selection below:']
-    Game.all.each do |game|
+    Game.where(publish: true).find_each do |game|
       index.push(game.name)
     end
     index.push('Simply type the name of the game you wish to play, and hit enter')
