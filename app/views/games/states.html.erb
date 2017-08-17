@@ -26,6 +26,9 @@
 
         <%= f.submit "Create State"%>
       <% end %>
+      <%= form_for :save_game, url: "", method: 'POST' do |f| %>
+        <%= f.submit 'Submit Complete Game' %>
+      <% end %>
   </section>
 
   <div>
