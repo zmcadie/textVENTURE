@@ -78,6 +78,10 @@ class GamesController < ApplicationController
     end
   end
 
+  def save_game
+    # toggle publish to true
+  end
+
   def select
     game_name = game_selection_form[:game_name].strip
     new_game = Game.find_by name: game_name
