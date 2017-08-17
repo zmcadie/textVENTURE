@@ -3,12 +3,15 @@
 body{
   background-color: black;
   color: white;
+  cursor: default;
   font-family: 'Roboto Mono', monospace;
 
   header {
-  display: inline;
+  display: flex;
   position: relative;
   text-align: left;
+  justify-content: space-between;
+  align-items: baseline;
 
     h1 {
       margin-left: 2vw;
@@ -16,10 +19,25 @@ body{
   }
 
   footer {
-  bottom: 0;
-  height: 8vh;
-  position: fixed;
-  text-align: center;
-  width: 100vw;
+    bottom: 0;
+    height: 8vh;
+    position: fixed;
+    width: 100vw;
+    h6 {
+      display: inline-block;
+      margin: 0;
+      padding-top: 4vh;
+    }
+
+    a.new-game-link {
+      color: white;
+      float: right;
+      margin-right: 2vw;
+      padding-top: 2vh;
+      text-decoration: none;
+    }
+    a.new-game-link:hover {
+      opacity: .5;
+    }
   }
 }
