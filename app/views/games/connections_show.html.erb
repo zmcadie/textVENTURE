@@ -30,7 +30,7 @@
         <%= form_for :save_game, url: "/games/new/#{params[:new_id]}", method: 'POST' do |f| %>
           <%= f.submit 'Submit Complete Game' %>
         <% end %>
-        <%= form_for :discard_game, url: "/games/new/#{params[:new_id]}", action: 'discard_game', method: 'POST' do |f| %>
+        <%= form_for :discard_game, url: "/games/new/#{params[:new_id]}", action: 'discard_game', method: 'DELETE' do |f| %>
           <%= f.submit 'Discard Game' %>
         <% end %>
       </div>
