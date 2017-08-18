@@ -13,11 +13,11 @@
  *= require_tree .
  *= require_self
  */
-@import 'main.scss';
-@import 'states.scss';
-@import 'games.scss';
-@import 'flash_message.scss';
-@import 'games_new.scss';
-@import 'connections.scss';
-@import 'states-show.scss';
+@import 'main';
+@import 'states';
+@import 'games';
+@import 'flash_message';
+@import 'games_new';
+@import 'connections';
+@import 'states-show';
 
