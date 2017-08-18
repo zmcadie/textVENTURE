@@ -32,5 +32,8 @@ section.new-states-form {
     input[value="Discard Game"]:hover {
       background-color: #d35f5f;
     }
+    input[value="Discard Game"]:focus {
+      outline: none;
+    }
   }
 }

@@ -1,4 +1,5 @@
 /*// Place all the styles related to the games controller here.*/
+$border: 0.6vh solid white;
 
 form {
   display: block;
@@ -6,7 +7,7 @@ form {
 
   input#user_input_game_name {
     background-color: black;
-    border: 0.6vh solid white;
+    border: $border;
     color: white;
     font-family: inherit;
     font-size: 3.5vh;
