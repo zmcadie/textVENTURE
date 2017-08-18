@@ -1,3 +1,5 @@
+$border: 0.6vh solid white;
+
 h2 {
   text-align: center;
 }
@@ -16,7 +18,7 @@ div.container {
       input#new_game_state_name,
       input#add_states_state_name {
         background-color: black;
-        border: 0.6vh solid white;
+        border: $border;
         color: white;
         font-family: inherit;
         font-size: 3.5vh;
@@ -36,7 +38,7 @@ div.container {
       textarea#new_game_beginning_state,
       textarea#add_states_state_description {
         background-color: black;
-        border: 0.6vh solid white;
+        border: $border;
         color: white;
         font-family: inherit;
         font-size: 2.8vh;
@@ -68,7 +70,7 @@ div.container {
   }
 
   aside#states-sidebar {
-    border: 0.6vh solid white;
+    border: $border;
     position: relative;
 
     section.states-sidebar {
@@ -139,6 +141,33 @@ div.container {
   a.start-connecting-link:hover {
     background-color: white;
     color: black;
+  }
+  div.helper-sidebar {
+    border: $border;
+    max-width: 30vw;
+    opacity: 0.5;
+
+    header.help-header {
+      h3 {
+        font-size: 2.5vh;
+        margin-left: 1vw;
+      }
+    }
+    ul {
+      font-size: 2vh;
+      margin-top: 0;
+      padding-left: 1vw;
+      li {
+        list-style: none;
+        padding: 0.6vh;
+      }
+      li:before {
+        content: "> ";
+      }
+      i {
+        font-size: 2.3vh;
+      }
+    }
   }
 }
 
