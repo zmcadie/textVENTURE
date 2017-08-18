@@ -61,13 +61,14 @@ section.new-action-form {
         cursor: pointer;
         font-family: inherit;
         font-size: 3.5vh;
+        height: 7vh;
         margin-top: 4vh;
       }
       input[value="Create Connection"]:hover {
         background-color: white;
         color: black;
       }
-      input[value="Submit Complete Game"] {
+      input[value="Publish Game"] {
         background-color: #97c1a8;
         border: none;
         color: white;
@@ -77,8 +78,22 @@ section.new-action-form {
         height: 7vh;
         margin-top: 1.5vh;
       }
-      input[value="Submit Complete Game"]:hover {
+      input[value="Publish Game"]:hover {
         background-color: #8ecca7;
+      }
+      input[value="Discard Game"] {
+        background-color: #ce6d6d;
+        border: none;
+        color: white;
+        cursor: pointer;
+        font-family: inherit;
+        font-size: 3vh;
+        height: 7vh;
+        margin-top: 1.5vh;
+        width: 30vw;
+      }
+      input[value="Discard Game"]:hover {
+        background-color: #d35f5f;
       }
     }
   }
