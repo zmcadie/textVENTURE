@@ -1,3 +1,5 @@
+$border: 0.6vh solid white;
+
 h3 {
   text-align: center;
 }
@@ -39,7 +41,7 @@ section.new-action-form {
       }
       input#new_action_trigger_word {
         background-color: black;
-        border: 0.6vh solid white;
+        border: $border;
         color: white;
         font-family: inherit;
         font-size: 4.5vh;

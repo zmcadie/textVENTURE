@@ -1,10 +1,11 @@
 /*// Place all the styles related to the states controller here.*/
+$border: 0.6vh solid white;
 
 section {
   margin-top: 5vh;
 
   #state-log {
-    border: 0.6vh solid white;
+    border: $border;
     display: flex;
     flex-direction: column-reverse;
     font-size: 3.5vh;
@@ -24,7 +25,7 @@ section {
 
     input#user_input_trigger {
       background-color: black;
-      border: 0.6vh solid white;
+      border: $border;
       color: white;
       font-family: inherit;
       font-size: 3.5vh;

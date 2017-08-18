@@ -2,13 +2,18 @@
   <section>
     <div class="helper-sidebar">
       <header class="help-header">
-        <h3>Some Tips to Help with Creating Your Game:</h3>
+        <h3>Some Terms to Know:</h3>
       </header>
       <ul>
-        <li></li>
+          <li><i>States</i> are the bulk of your story. They are rich descriptions that give players the info they need to play your game.</li>
+          <li><i>Actions</i> are the commands typed by players to advance to the next state of your story. They are often verbs or directions, like "run" or "left".</li>
+          <li><i>State Names</i> are never displayed to players, and are meant to be a descriptive reference for you in the connections stage</li>
+          <li><i>Connecting</i> is just the process of linking states with action words, and is what allows players to navigate your game.</li>
+        </ul>
       </ul>
     </div>
   </section>
+
   <section>
     <div id="new-game-form">
     <h2>Create a New Game</h2>
@@ -24,6 +29,21 @@
 
         <%= f.submit "Start"%>
       <% end %>
+    </div>
+  </section>
+
+  <section>
+    <div class="helper-sidebar">
+      <header class="help-header">
+        <h3>Some Tips to Get You Started:</h3>
+      </header>
+      <ul>
+        <li><i>Linear Games</i> work best with this engine, though you can create loops if you like.</li>
+        <li>Simple and direct <i>action</i> words are best. Players are able to type '--help' to see a list of available commands if needed, but we strongly recommend writing your <i>states</i> so they don't need to.</li>
+        <li>We also recommend writing your game out in full before beginning the game creation process, to make your life easier! Hint: Using a tree format is a helpful reference.</li>
+        <li>The scale of this engine is boundless! Make as big or as small of a story as your imagination allows,</li>
+        <li>BUT be aware that games cannot be saved mid-creation and returned to!</li>
+      </ul>
     </div>
   </section>
 </div>
