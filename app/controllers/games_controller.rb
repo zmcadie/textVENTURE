@@ -90,6 +90,17 @@ class GamesController < ApplicationController
     end
   end
 
+  def discard_game
+    @game = Game.find(params[:new_id])
+    if @game.destroy
+      redirect_to "/"
+      flash[:notice] = "your game was discarded"
+    else
+      redirect_back fallback_location: { action: 'states'}
+      flash[:notice] = "something went wrong discarding your game"
+    end
+  end
+
   def select
     # select which game to play from games index list
     game_name = game_selection_form[:game_name].strip
