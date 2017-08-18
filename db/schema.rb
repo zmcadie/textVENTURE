@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170815003214) do
+ActiveRecord::Schema.define(version: 20170817213200) do
 
   create_table "actions", force: :cascade do |t|
     t.integer "state_id"
@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 20170815003214) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "initial_state_id"
+    t.boolean "publish", default: false
   end
 
   create_table "states", force: :cascade do |t|

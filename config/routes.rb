@@ -12,6 +12,8 @@ Rails.application.routes.draw do
   post '/games/new/:new_id/states' => 'games#states_create'
   # view for individual states already created (sidebar links)
   get '/games/new/:new_id/states/:state_id' => 'games#states_show'
+  # button to toggle publish to true in db
+  post 'games/new/:new_id' => 'games#save_game'
 
   get '/games/:game_id' => 'games#show'
   post '/' => 'states#update'

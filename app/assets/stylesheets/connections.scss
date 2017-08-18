@@ -10,8 +10,11 @@ section.buffer-2 {
 
 section.new-action-form {
   div#add-action-form {
+    display: inline-flex;
+    flex-direction: column;
     form {
       font-size: 4vh;
+      width: 30vw;
       p.current-state {
         font-style: italic;
         margin: 0;
@@ -63,6 +66,19 @@ section.new-action-form {
       input[value="Create Connection"]:hover {
         background-color: white;
         color: black;
+      }
+      input[value="Submit Complete Game"] {
+        background-color: #97c1a8;
+        border: none;
+        color: white;
+        cursor: pointer;
+        font-family: inherit;
+        font-size: 3vh;
+        height: 7vh;
+        margin-top: 1.5vh;
+      }
+      input[value="Submit Complete Game"]:hover {
+        background-color: #8ecca7;
       }
     }
   }
