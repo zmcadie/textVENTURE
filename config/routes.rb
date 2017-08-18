@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   get '/games/new/:new_id/states/:state_id' => 'games#states_show'
   # routes to publish or discard games
   post 'games/new/:new_id' => 'games#save_game'
-  post 'games/new/:new_id' => 'games#discard_game'
+  delete 'games/new/:new_id' => 'games#discard_game'
 
   get '/games/:game_id' => 'games#show'
   post '/' => 'states#update'
