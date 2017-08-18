@@ -1,11 +1,11 @@
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
+
+State.destroy_all
 Game.destroy_all
 @game1 = Game.create! id: 1, name: "Harry Potter Maze", publish: true
 
 @game2 = Game.create! id: 2, name: "Windows XP Rooms", publish: true
-
-State.destroy_all
 
 # Game 1 #
 
@@ -40,8 +40,6 @@ State.destroy_all
 @green_room = @game2.states.create! name: "green", description: "You enter a green room. There are two doors, one to the south and one to the west. Where do you want to go?"
 
 @yellow_room = @game2.states.create! name: "yellow", description: "You enter a yellow room. There are two doors, one to the north and one to the west. Where do you want to go?"
-
-Action.destroy_all
 
 # Game 1 #
 
