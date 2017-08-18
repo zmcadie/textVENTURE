@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 20170817213200) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "actions", force: :cascade do |t|
     t.integer "state_id"
     t.string "trigger"
