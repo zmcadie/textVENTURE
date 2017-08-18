@@ -1,7 +1,9 @@
+$border: 0.6vh solid white;
+
 div.container.state-show {
 
   div.state-info{
-    border: 0.6vh solid white;
+    border: $border;
     height: 42vh;
     width: 40vw;
     text-align: center;
