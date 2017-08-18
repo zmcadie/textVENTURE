@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 20170817213200) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "actions", force: :cascade do |t|
     t.integer "state_id"
     t.string "trigger"
@@ -32,9 +35,10 @@ ActiveRecord::Schema.define(version: 20170817213200) do
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "game_id"
+    t.bigint "game_id"
     t.string "name"
     t.index ["game_id"], name: "index_states_on_game_id"
   end
 
+  add_foreign_key "states", "games"
 end
