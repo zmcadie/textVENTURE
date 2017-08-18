@@ -81,6 +81,9 @@ section.new-action-form {
       input[value="Publish Game"]:hover {
         background-color: #8ecca7;
       }
+      input[value="Publish Game"]:focus {
+        outline: none;
+      }
       input[value="Discard Game"] {
         background-color: #ce6d6d;
         border: none;
@@ -94,6 +97,9 @@ section.new-action-form {
       }
       input[value="Discard Game"]:hover {
         background-color: #d35f5f;
+      }
+      input[value="Discard Game"]:focus {
+        outline: none;
       }
     }
   }
