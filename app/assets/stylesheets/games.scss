@@ -12,7 +12,8 @@ form {
     font-family: inherit;
     font-size: 3.5vh;
     height: 5vh;
-    width: 65vw;
+    width: 64vw;
+    padding-left: 1vw;
   }
   input#user_input_game_name:focus {
     outline: none;
