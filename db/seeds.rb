@@ -3,9 +3,9 @@
 
 State.destroy_all
 Game.destroy_all
-@game1 = Game.create! id: 1, name: "Harry Potter Maze", publish: true
+@game1 = Game.create! name: "Harry Potter Maze", publish: true
 
-@game2 = Game.create! id: 2, name: "Windows XP Rooms", publish: true
+@game2 = Game.create! name: "Windows XP Rooms", publish: true
 
 # Game 1 #
 
