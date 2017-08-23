@@ -156,14 +156,14 @@ class GamesController < ApplicationController
 
   # does any part of the sentence typed in by the user contain an actrion trigger word?
   def aprox_trigger?(user_input)
-    next_state_id = nil
+    action_info = nil
     Action.where({ state_id: session['state_id'] }).find_each do |action|
       trigger_words = action.trigger.split
       if trigger_words.any? { |word| user_input.include?(word) }
-        next_state_id = action.result_id
+        action_info = action
       end
     end
-    next_state_id
+    action_info
   end
 
   # method called in update#states_controller
@@ -186,9 +186,17 @@ class GamesController < ApplicationController
       end
     else # If not a system message, then it is a user action # So take their trigger and find the next_state_id
       if aprox_trigger?(clean_input)
-        new_state_id = aprox_trigger?(clean_input)
-        session[:state_id] = new_state_id
-        description = State.find(new_state_id).description
+        action = aprox_trigger?(clean_input)
+        description = action.description
+        logItem = {
+          type: 'game',
+          value: description
+        }
+        update_state_log(logItem)
+
+
+        session[:state_id] = action.result_id
+        description = State.find(action.result_id).description
         logItem = {
           type: 'game',
           value: description
