@@ -137,13 +137,34 @@ class GamesController < ApplicationController
     index.push('Simply type the name of the game you wish to play, and hit enter')
   end
 
+  # returns a list of the possible actions a user could take in the given game state
+  def display_possible_actions
+    available_actions = ""
+    Action.where({ state_id: session['state_id'] }).find_each do |trigger|
+      available_actions += trigger.trigger + " "
+    end
+    actions_list = available_actions.strip.split.join(", ")
+    action = "Maybe try one of: #{actions_list}"
+    logItem = {
+      type: 'system',
+      value: action
+    }
+    update_state_log(logItem)
+    action
+  end
+
+  #/////////////////////////////////////////////////#
+  #/////                                         ///#
+  #//// Helper functions for parsing user input ////#
+  #///                                         /////#
+  #/////////////////////////////////////////////////#
+
   # Remove whitespacing, make downcase
   def clean_user_input(input)
     cleansed_input = input.strip.downcase.split.join(" ")
     cleansed_input
   end
 
-  # is this a system message? (or an action trigger word)
   def system_message?(user_input)
     user_input[0, 2] == '--'
   end
@@ -209,35 +230,43 @@ class GamesController < ApplicationController
     end
   end
 
-  # redirected here when "--help" system message is detected
+  #////////////////////////////////////////////////////#
+  #/////                                            ///#
+  #//// system commands are universal to all games ////#
+  #///                                            /////#
+  #////////////////////////////////////////////////////#
   def command_help
     display_possible_actions
   end
 
-  # redirected here when "--quit" system message is detected
   def command_quit
     reset_session
     @@state_log = []
     redirect_to "/"
   end
 
-  # returns a list of the possible actions a user could take in the given game state
-  def display_possible_actions
-    available_actions = ""
-    Action.where({ state_id: session['state_id'] }).find_each do |trigger|
-      available_actions += trigger.trigger + " "
+  def command_save(email = nil)
+    message = ''
+    if !email
+      message = 'Please provide an email, type "--save your_email_here@textventure.net"'
+    else
+      message = "Thank you #{email}"
     end
-    actions_list = available_actions.strip.split.join(", ")
-    action = "Maybe try one of: #{actions_list}"
     logItem = {
-      type: 'system',
-      value: action
-    }
+        type: 'system',
+        value: message
+      }
     update_state_log(logItem)
-    action
   end
 
-  # FORMS #
+  def command_load
+  end
+
+  #/////////////////////#
+  #/////             ///#
+  #////    FORMS    ////#
+  #///             /////#
+  #/////////////////////#
   def game_selection_form
     params.require(:user_input).permit(
       :game_name
