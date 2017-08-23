@@ -165,6 +165,16 @@ class GamesController < ApplicationController
     action_info
   end
 
+  def handle_system_message(clean_input)
+    keyword = slice_dashes(clean_input)
+    command = "command_#{keyword}"
+    if respond_to? command # Does this command actually exist in games controller?
+      send command # If yes, then execute that command
+    else
+      update_state_log('system', 'Sorry, that system command does not exist')
+    end
+  end
+
   # method called in update#states_controller
   # determines if user input is an action trigger word or a system command
   # updates state log and redirects accordingly
@@ -172,13 +182,15 @@ class GamesController < ApplicationController
     clean_input = clean_user_input(user_input)
 
     if system_message?(clean_input) # Is it a system-type message?
-      keyword = slice_dashes(clean_input) # If yes, slice off the dashes
-      command = "command_#{keyword}"
-      if respond_to? command # Does this command actually exist in games controller?
-        send command # If yes, then execute that command
-      else
-        update_state_log('game', 'Sorry, that system command does not exist')
-      end
+      # keyword = slice_dashes(clean_input) # If yes, slice off the dashes
+      # command = "command_#{keyword}"
+      # if respond_to? command # Does this command actually exist in games controller?
+      #   send command # If yes, then execute that command
+      # else
+      #   update_state_log('system', 'Sorry, that system command does not exist')
+      # end
+      handle_system_message(clean_input)
+
     else # If not a system message, then it is a user action # So take their trigger and find the next_state_id
       if aprox_trigger?(clean_input)
         action = aprox_trigger?(clean_input)
@@ -198,6 +210,13 @@ class GamesController < ApplicationController
       redirect_to "/games/#{session[:game_id]}"
     end
   end
+
+
+
+
+
+
+
 
   # redirected here when "--help" system message is detected
   def command_help
