@@ -175,6 +175,16 @@ class GamesController < ApplicationController
     end
   end
 
+  def handle_action(action)
+    action_description = action.description
+    update_state_log('game', action_description)
+
+    session[:state_id] = action.result_id
+
+    new_state_description = State.find(action.result_id).description
+    update_state_log('game', new_state_description)
+  end
+
   # method called in update#states_controller
   # determines if user input is an action trigger word or a system command
   # updates state log and redirects accordingly
@@ -182,24 +192,17 @@ class GamesController < ApplicationController
     clean_input = clean_user_input(user_input)
 
     if system_message?(clean_input) # Is it a system-type message?
-      # keyword = slice_dashes(clean_input) # If yes, slice off the dashes
-      # command = "command_#{keyword}"
-      # if respond_to? command # Does this command actually exist in games controller?
-      #   send command # If yes, then execute that command
-      # else
-      #   update_state_log('system', 'Sorry, that system command does not exist')
-      # end
       handle_system_message(clean_input)
-
     else # If not a system message, then it is a user action # So take their trigger and find the next_state_id
       if aprox_trigger?(clean_input)
         action = aprox_trigger?(clean_input)
-        description = action.description
-        update_state_log('game', description)
+        # description = action.description
+        # update_state_log('game', description)
 
-        session[:state_id] = action.result_id
-        description = State.find(action.result_id).description
-        update_state_log('game', description)
+        # session[:state_id] = action.result_id
+        # description = State.find(action.result_id).description
+        # update_state_log('game', description)
+        handle_action(action)
       else
         state_id = session[:state_id]
         update_state_log('system', 'Sorry I don\'t know what that means')
@@ -210,6 +213,7 @@ class GamesController < ApplicationController
       redirect_to "/games/#{session[:game_id]}"
     end
   end
+
 
 
 
