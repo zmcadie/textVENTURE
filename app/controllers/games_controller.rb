@@ -113,19 +113,23 @@ class GamesController < ApplicationController
       session[:state_id] = new_game.initial_state_id
 
       description = State.find(new_game.initial_state_id).description
-      logItem = {
-        type: 'game',
-        value: description
-      }
-      update_state_log(logItem)
-
+      # logItem = {
+      #   type: 'game',
+      #   value: description
+      # }
+      # update_state_log(logItem)
+      update_state_log('game', description)
       redirect_to "/games/#{new_game.id}"
     end
   end
 
   # push new state description to history aka state_log
-  def update_state_log(input)
-    @@state_log.push(input)
+  def update_state_log(type, value)
+    logItem = {
+      type: type,
+      value: value
+    }
+    @@state_log.push(logItem)
   end
 
   # displays a list of the names of published games
@@ -178,37 +182,41 @@ class GamesController < ApplicationController
       if respond_to? command # Does this command actually exist in games controller?
         send command # If yes, then execute that command
       else
-        logItem = {
-          type: 'game',
-          value: 'Sorry, that system command does not exist'
-        }
-        update_state_log(logItem)
+        # logItem = {
+        #   type: 'game',
+        #   value: 'Sorry, that system command does not exist'
+        # }
+        # update_state_log(logItem)
+        update_state_log('game', 'Sorry, that system command does not exist')
       end
     else # If not a system message, then it is a user action # So take their trigger and find the next_state_id
       if aprox_trigger?(clean_input)
         action = aprox_trigger?(clean_input)
         description = action.description
-        logItem = {
-          type: 'game',
-          value: description
-        }
-        update_state_log(logItem)
+        # logItem = {
+        #   type: 'game',
+        #   value: description
+        # }
+        # update_state_log(logItem)
+        update_state_log('game', description)
 
 
         session[:state_id] = action.result_id
         description = State.find(action.result_id).description
-        logItem = {
-          type: 'game',
-          value: description
-        }
-        update_state_log(logItem)
+        # logItem = {
+        #   type: 'game',
+        #   value: description
+        # }
+        # update_state_log(logItem)
+        update_state_log('game', description)
       else
         state_id = session[:state_id]
-        logItem = {
-          type: 'system',
-          value: 'Sorry I don\'t know what that means'
-        }
-        update_state_log(logItem)
+        # logItem = {
+        #   type: 'system',
+        #   value: 'Sorry I don\'t know what that means'
+        # }
+        # update_state_log(logItem)
+        update_state_log('system', 'Sorry I don\'t know what that means')
       end
     end
 
@@ -237,11 +245,12 @@ class GamesController < ApplicationController
     end
     actions_list = available_actions.strip.split.join(", ")
     action = "Maybe try one of: #{actions_list}"
-    logItem = {
-      type: 'system',
-      value: action
-    }
-    update_state_log(logItem)
+    # logItem = {
+    #   type: 'system',
+    #   value: action
+    # }
+    # update_state_log(logItem)
+    update_state_log('system', action)
     action
   end
 
