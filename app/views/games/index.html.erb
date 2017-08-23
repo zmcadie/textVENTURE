@@ -1,14 +1,16 @@
-<section>
-  <div id="state-log">
-    <div id="state-content">
-      <% @games.each do |game| %>
-    <div>> <%= game %></div>
-    <br>
-    <% end %>
+<div class="container">
+  <section>
+    <div id="state-log">
+      <div id="state-content">
+        <% @games.each do |game| %>
+      <div>> <%= game %></div>
+      <br>
+      <% end %>
+      </div>
     </div>
-  </div>
-  <br>
-  <%= form_for :user_input, url: "/games", method: 'POST' do |f| %>
-    <%= f.text_field :game_name, autocomplete: 'off', spellcheck: 'false', autofocus: 'true' %>
-  <% end %>
-</section>
+    <br>
+    <%= form_for :user_input, url: "/games", method: 'POST' do |f| %>
+      <%= f.text_field :game_name, autocomplete: 'off', spellcheck: 'false', autofocus: 'true' %>
+    <% end %>
+  </section>
+</div>

@@ -1,10 +1,23 @@
-<section>
-  <div id="state-log">
-    <div id="state-content" data-react-props="<%= @log.to_json %>"></div>
-  </div>
-  <br>
-  <%= form_for :user_input, url: "/", method: 'POST' do |f| %>
-    <%= f.text_field :trigger, autocomplete: 'off', spellcheck: 'false', autofocus: 'true' %>
-    <%= f.hidden_field :state_id, value: @state_id %>
-  <% end %>
-</section>
+<div class="container">
+  <section>
+    <div id="state-log">
+      <div id="state-content" data-react-props="<%= @log.to_json %>"></div>
+    </div>
+    <br>
+    <%= form_for :user_input, url: "/", method: 'POST' do |f| %>
+      <%= f.text_field :trigger, autocomplete: 'off', spellcheck: 'false', autofocus: 'true' %>
+      <%= f.hidden_field :state_id, value: @state_id %>
+    <% end %>
+
+    <div class="help-hover-link">
+      <h4>Need Help?
+        <div class="help-hover-info">
+          <ul>
+            <li>type '--help' to list available commands</li>
+            <li>type '--quit' to take you back to the homepage</li>
+          </ul>
+        </div>
+      </h4>
+    </div>
+  </section>
+</div>
