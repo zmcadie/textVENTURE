@@ -196,12 +196,6 @@ class GamesController < ApplicationController
     else # If not a system message, then it is a user action # So take their trigger and find the next_state_id
       if aprox_trigger?(clean_input)
         action = aprox_trigger?(clean_input)
-        # description = action.description
-        # update_state_log('game', description)
-
-        # session[:state_id] = action.result_id
-        # description = State.find(action.result_id).description
-        # update_state_log('game', description)
         handle_action(action)
       else
         state_id = session[:state_id]
