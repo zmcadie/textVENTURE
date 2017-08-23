@@ -68,7 +68,7 @@ class GamesController < ApplicationController
 
   def create_connections
     # add actions to states
-    @action = Action.new(state_id: params[:state_id], trigger: new_action_params[:trigger_word], result_id: new_action_params[:second_state])
+    @action = Action.new(state_id: params[:state_id], trigger: new_action_params[:trigger_word], result_id: new_action_params[:second_state], description: new_action_params[:action_desc])
     if @action.save
       redirect_back fallback_location: { action: 'connections_show'}
       flash[:notice] = "new action added to #{State.find_by(id: @action.state_id).name}!"
@@ -248,7 +248,8 @@ class GamesController < ApplicationController
   def new_action_params
     params.require(:new_action).permit(
       :second_state,
-      :trigger_word
+      :trigger_word,
+      :action_desc
       )
   end
 end
