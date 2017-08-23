@@ -117,7 +117,6 @@ class GamesController < ApplicationController
   def select
     # select which game to play from games index list
     game_name = game_selection_form[:game_name].strip
-    # new_game = Game.find_by name: game_name
     new_game = Game.where("lower(name) = ?", game_name.downcase).first
     if new_game == nil
       flash[:notice] = "No games with that name in here!"
