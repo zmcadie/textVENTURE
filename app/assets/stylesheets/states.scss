@@ -1,39 +1,86 @@
 /*// Place all the styles related to the states controller here.*/
 $border: 0.6vh solid white;
 
-section {
-  margin-top: 5vh;
+div.container {
+  section {
+    margin-top: 5vh;
 
-  #state-log {
-    border: $border;
-    display: flex;
-    flex-direction: column-reverse;
-    font-size: 3.5vh;
-    height: 55vh;
-    margin: 0 auto;
-    overflow-y: auto;
-    width: 65vw;
-
-    #state-content {
-      margin-left: 2vw;
-      margin-top: 2vh;
-    }
-  }
-  form {
-    display: block;
-    text-align: center;
-
-    input#user_input_trigger {
-      background-color: black;
+    #state-log {
       border: $border;
-      color: white;
-      font-family: inherit;
+      display: flex;
+      flex-direction: column-reverse;
       font-size: 3.5vh;
-      height: 5vh;
+      height: 55vh;
+      margin: 0 auto;
+      overflow-y: auto;
       width: 65vw;
+
+      #state-content {
+        margin-left: 2vw;
+        margin-top: 2vh;
+        margin-right: 1vw;
+        margin-bottom: 2vh;
+
+        div.game-log,
+        div.user-log,
+        div.system-log {
+          margin-top: 1.3vh;
+          overflow-wrap: break-word;
+        }
+
+        div.system-log {
+          color: grey;
+        }
+      }
     }
-    input#user_input_trigger:focus {
-      outline: none;
+
+    form {
+      display: block;
+      text-align: center;
+
+      input#user_input_trigger {
+        background-color: black;
+        border: $border;
+        color: white;
+        display: flex;
+        flex-direction: column-reverse;
+        font-family: inherit;
+        font-size: 3.5vh;
+        height: 5vh;
+        width: 64vw;
+        padding-left: 1vw;
+      }
+
+      input#user_input_trigger:focus {
+        outline: none;
+      }
+     }
+   }
+
+  div.help-hover-link {
+    width: 8vw;
+
+    h4 {
+      display: inline;
+
+      div.help-hover-info {
+        background-color: grey;
+        display: none;
+        float: center;
+        width: 30vw;
+      }
     }
   }
+
+  div.help-hover-link:hover .help-hover-info {
+      display: inline-block;
+      ul {
+        padding-left: 1vw;
+        li {
+          list-style: none;
+        }
+      }
+    }
 }
+
+

@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   get '/' => 'games#index'
+  post '/' => 'states#update'
   # form for adding game to db
   get '/games/new' => 'games#new'
   post '/games/new' => 'games#create'
@@ -17,6 +18,5 @@ Rails.application.routes.draw do
   delete 'games/new/:new_id' => 'games#discard_game'
 
   get '/games/:game_id' => 'games#show'
-  post '/' => 'states#update'
   post '/games' => 'games#select'
 end
