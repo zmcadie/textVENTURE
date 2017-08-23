@@ -22,7 +22,11 @@ class GamesController < ApplicationController
     game_name = new_game_params[:game_title]
     @game = Game.new(name: game_name)
     if @game.save
-      @initial_state = State.new(name: new_game_params[:state_name], description: new_game_params[:beginning_state], game_id: @game.id)
+      @initial_state = State.new(
+        name: new_game_params[:state_name],
+        description: new_game_params[:beginning_state],
+        game_id: @game.id
+      )
       if @initial_state.save
         @game.initial_state_id = @initial_state.id
         @game.save
@@ -45,7 +49,11 @@ class GamesController < ApplicationController
     # add State.new to new game
     # view states' info
     @game = Game.find(params[:new_id])
-    @state = State.new(name: new_state_params[:state_name], description: new_state_params[:state_description], game_id: @game.id)
+    @state = State.new(
+      name: new_state_params[:state_name],
+      description: new_state_params[:state_description],
+      game_id: @game.id
+    )
     if @state.save
       redirect_back fallback_location: { action: 'states'}
     else
@@ -68,7 +76,12 @@ class GamesController < ApplicationController
 
   def create_connections
     # add actions to states
-    @action = Action.new(state_id: params[:state_id], trigger: new_action_params[:trigger_word], result_id: new_action_params[:second_state], description: new_action_params[:action_desc])
+    @action = Action.new(
+      state_id: params[:state_id],
+      trigger: new_action_params[:trigger_word],
+      result_id: new_action_params[:second_state],
+      description: new_action_params[:action_desc]
+    )
     if @action.save
       redirect_back fallback_location: { action: 'connections_show'}
       flash[:notice] = "new action added to #{State.find_by(id: @action.state_id).name}!"
