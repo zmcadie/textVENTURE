@@ -1,9 +1,10 @@
 /*// Place all the styles related to the states controller here.*/
 $border: 0.6vh solid white;
+
 div.container {
   section {
     margin-top: 5vh;
-
+    
     #state-log {
       border: $border;
       display: flex;
@@ -17,8 +18,22 @@ div.container {
       #state-content {
         margin-left: 2vw;
         margin-top: 2vh;
+        margin-right: 1vw;
+        margin-bottom: 2vh;
+
+        div.game-log,
+        div.user-log,
+        div.system-log {
+          margin-top: 1.3vh;
+          overflow-wrap: break-word;
+        }
+        
+        div.system-log {
+          color: grey;
+        }
       }
     }
+    
     form {
       display: block;
       text-align: center;
@@ -26,18 +41,19 @@ div.container {
       input#user_input_trigger {
         background-color: black;
         border: $border;
-        color: white;
-        font-family: inherit;
+        display: flex;
+        flex-direction: column-reverse;
         font-size: 3.5vh;
         height: 5vh;
-        width: 65vw;
+        width: 64vw;
+        padding-left: 1vw;
       }
 
       input#user_input_trigger:focus {
         outline: none;
       }
-    }
-  }
+     }
+   }
 
   div.help-hover-link {
     width: 8vw;
