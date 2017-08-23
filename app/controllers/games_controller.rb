@@ -191,30 +191,23 @@ class GamesController < ApplicationController
   def handle_user_input(user_input)
     clean_input = clean_user_input(user_input)
 
-    if system_message?(clean_input) # Is it a system-type message?
+    if system_message?(clean_input)
       handle_system_message(clean_input)
-    else # If not a system message, then it is a user action # So take their trigger and find the next_state_id
-      if aprox_trigger?(clean_input)
-        action = aprox_trigger?(clean_input)
-        handle_action(action)
-      else
-        state_id = session[:state_id]
-        update_state_log('system', 'Sorry I don\'t know what that means')
-      end
+
+    # If action exists:
+    elsif aprox_trigger?(clean_input)
+      action = aprox_trigger?(clean_input)
+      handle_action(action)
+
+    else
+      state_id = session[:state_id]
+      update_state_log('system', 'Sorry I don\'t know what that means')
     end
 
     if not performed?
       redirect_to "/games/#{session[:game_id]}"
     end
   end
-
-
-
-
-
-
-
-
 
   # redirected here when "--help" system message is detected
   def command_help
