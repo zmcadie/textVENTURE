@@ -4,7 +4,7 @@ $border: 0.6vh solid white;
 div.container {
   section {
     margin-top: 5vh;
-    
+
     #state-log {
       border: $border;
       display: flex;
@@ -27,13 +27,13 @@ div.container {
           margin-top: 1.3vh;
           overflow-wrap: break-word;
         }
-        
+
         div.system-log {
           color: grey;
         }
       }
     }
-    
+
     form {
       display: block;
       text-align: center;
@@ -41,8 +41,10 @@ div.container {
       input#user_input_trigger {
         background-color: black;
         border: $border;
+        color: white;
         display: flex;
         flex-direction: column-reverse;
+        font-family: inherit;
         font-size: 3.5vh;
         height: 5vh;
         width: 64vw;
