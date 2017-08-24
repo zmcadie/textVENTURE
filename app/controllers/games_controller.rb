@@ -9,8 +9,12 @@ class GamesController < ApplicationController
 
   def show
     # render each new game state, along with history (state_log)
-    @log = @@state_log
-    @state_id = session[:state_id]
+    if @@state_log == []
+      redirect_to '/'
+    else
+      @log = @@state_log
+      @state_id = session[:state_id]
+    end
   end
 
   def new
