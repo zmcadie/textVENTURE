@@ -149,13 +149,30 @@ class GamesController < ApplicationController
     index.push('Simply type the name of the game you wish to play, and hit enter')
   end
 
+  # returns a list of the possible actions a user could take in the given game state
+  def display_possible_actions
+    available_actions = ""
+    Action.where({ state_id: session['state_id'] }).find_each do |trigger|
+      available_actions += trigger.trigger + " "
+    end
+    actions_list = available_actions.strip.split.join(", ")
+    action = "Maybe try one of: #{actions_list}"
+    update_state_log('system', action)
+    action
+  end
+
+  #/////////////////////////////////////////////////#
+  #/////                                         ///#
+  #//// Helper functions for parsing user input ////#
+  #///                                         /////#
+  #/////////////////////////////////////////////////#
+
   # Remove whitespacing, make downcase
   def clean_user_input(input)
     cleansed_input = input.strip.downcase.split.join(" ")
     cleansed_input
   end
 
-  # is this a system message? (or an action trigger word)
   def system_message?(user_input)
     user_input[0, 2] == '--'
   end
@@ -179,10 +196,14 @@ class GamesController < ApplicationController
   end
 
   def handle_system_message(clean_input)
-    keyword = slice_dashes(clean_input)
-    command = "command_#{keyword}"
-    if respond_to? command # Does this command actually exist in games controller?
-      send command # If yes, then execute that command
+    keyword = slice_dashes(clean_input).split(" ")
+    command = "command_#{keyword[0]}"
+    if respond_to? command # Does command exist?
+      if keyword[1]
+        send command, keyword[1]
+      else
+        send command
+      end
     else
       update_state_log('system', 'Sorry, that system command does not exist')
     end
@@ -222,31 +243,46 @@ class GamesController < ApplicationController
     end
   end
 
-  # redirected here when "--help" system message is detected
+  #////////////////////////////////////////////////////#
+  #/////                                            ///#
+  #//// system commands are universal to all games ////#
+  #///                                            /////#
+  #////////////////////////////////////////////////////#
   def command_help
     display_possible_actions
   end
 
-  # redirected here when "--quit" system message is detected
   def command_quit
     reset_session
     @@state_log = []
     redirect_to "/"
   end
 
-  # returns a list of the possible actions a user could take in the given game state
-  def display_possible_actions
-    available_actions = ""
-    Action.where({ state_id: session['state_id'] }).find_each do |trigger|
-      available_actions += trigger.trigger + " "
-    end
-    actions_list = available_actions.strip.split.join(", ")
-    action = "Maybe try one of: #{actions_list}"
-    update_state_log('system', action)
-    action
+  def command_save(email = nil)
+    save_state = {
+      user_email: email,
+      game_id: session[:game_id],
+      state_id: session[:state_id]
+    }
+    message = SaveState.save_game(save_state)
+    update_state_log('system', message)
   end
 
-  # FORMS #
+  def command_load(email = nil)
+    save_state = {
+      user_email: email,
+      game_id: session[:game_id]
+    }
+    response, state_id = SaveState.load_game(save_state)
+    session[:state_id] = state_id
+    update_state_log(response[:type], response[:value])
+  end
+
+  #/////////////////////#
+  #/////             ///#
+  #////    FORMS    ////#
+  #///             /////#
+  #/////////////////////#
   def game_selection_form
     params.require(:user_input).permit(
       :game_name

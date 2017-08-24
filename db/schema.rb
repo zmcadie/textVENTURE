@@ -32,6 +32,14 @@ ActiveRecord::Schema.define(version: 20170822185701) do
     t.boolean "publish", default: false
   end
 
+  create_table "save_states", force: :cascade do |t|
+    t.string "user_email"
+    t.integer "game_id"
+    t.integer "state_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "states", force: :cascade do |t|
     t.text "description"
     t.datetime "created_at", null: false
