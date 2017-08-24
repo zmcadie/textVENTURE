@@ -246,12 +246,12 @@ class GamesController < ApplicationController
   end
 
   def command_save(email = nil)
-    message = ''
-    if !email
-      message = 'Please provide an email, type "--save your_email_here@textventure.net"'
-    else
-      message = "Thank you #{email}"
-    end
+    save_state = {
+      user_email: email,
+      game_id: session[:game_id],
+      state_id: session[:state_id]
+    }
+    message = SaveState.save_game(save_state)
     update_state_log('system', message)
   end
 
