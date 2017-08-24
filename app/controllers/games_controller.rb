@@ -183,10 +183,14 @@ class GamesController < ApplicationController
   end
 
   def handle_system_message(clean_input)
-    keyword = slice_dashes(clean_input)
-    command = "command_#{keyword}"
-    if respond_to? command # Does this command actually exist in games controller?
-      send command # If yes, then execute that command
+    keyword = slice_dashes(clean_input).split(" ")
+    command = "command_#{keyword[0]}"
+    if respond_to? command # Does command exist?
+      if keyword[1]
+        send command, keyword[1]
+      else
+        send command
+      end
     else
       update_state_log('system', 'Sorry, that system command does not exist')
     end
@@ -248,11 +252,7 @@ class GamesController < ApplicationController
     else
       message = "Thank you #{email}"
     end
-    logItem = {
-        type: 'system',
-        value: message
-      }
-    update_state_log(logItem)
+    update_state_log('system', message)
   end
 
   def command_load
