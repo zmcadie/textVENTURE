@@ -15,4 +15,13 @@ class SaveState < ApplicationRecord
     end
     message
   end
+
+  def self.load_game(state_obj)
+    if state_obj[:user_email]
+      response = SaveState.find_by(state_obj)
+    else
+      response = 'please provide an email, type "--load <your email here>"'
+    end
+    response
+  end
 end

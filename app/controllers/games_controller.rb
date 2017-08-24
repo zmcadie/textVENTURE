@@ -255,7 +255,15 @@ class GamesController < ApplicationController
     update_state_log('system', message)
   end
 
-  def command_load
+  def command_load(email = nil)
+    save_state = {
+      user_email: email,
+      game_id: session[:game_id]
+    }
+    response = SaveState.load_game(save_state)
+    if response[:state_id]
+      session[:state_id] = response[:state_id]
+    end
   end
 
   #/////////////////////#
