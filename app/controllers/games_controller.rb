@@ -68,7 +68,7 @@ class GamesController < ApplicationController
 
   def create_connections
     # add actions to states
-    @action = Action.new(state_id: params[:state_id], trigger: new_action_params[:trigger_word], result_id: new_action_params[:second_state])
+    @action = Action.new(state_id: params[:state_id], trigger: new_action_params[:trigger_word], result_id: new_action_params[:second_state], description: new_action_params[:action_desc])
     if @action.save
       redirect_back fallback_location: { action: 'connections_show'}
       flash[:notice] = "new action added to #{State.find_by(id: @action.state_id).name}!"
@@ -113,19 +113,18 @@ class GamesController < ApplicationController
       session[:state_id] = new_game.initial_state_id
 
       description = State.find(new_game.initial_state_id).description
-      logItem = {
-        type: 'game',
-        value: description
-      }
-      update_state_log(logItem)
-
+      update_state_log('game', description)
       redirect_to "/games/#{new_game.id}"
     end
   end
 
   # push new state description to history aka state_log
-  def update_state_log(input)
-    @@state_log.push(input)
+  def update_state_log(type, value)
+    logItem = {
+      type: type,
+      value: value
+    }
+    @@state_log.push(logItem)
   end
 
   # displays a list of the names of published games
@@ -145,11 +144,7 @@ class GamesController < ApplicationController
     end
     actions_list = available_actions.strip.split.join(", ")
     action = "Maybe try one of: #{actions_list}"
-    logItem = {
-      type: 'system',
-      value: action
-    }
-    update_state_log(logItem)
+    update_state_log('system', action)
     action
   end
 
@@ -177,14 +172,34 @@ class GamesController < ApplicationController
 
   # does any part of the sentence typed in by the user contain an actrion trigger word?
   def aprox_trigger?(user_input)
-    next_state_id = nil
+    action_info = nil
     Action.where({ state_id: session['state_id'] }).find_each do |action|
       trigger_words = action.trigger.split
       if trigger_words.any? { |word| user_input.include?(word) }
-        next_state_id = action.result_id
+        action_info = action
       end
     end
-    next_state_id
+    action_info
+  end
+
+  def handle_system_message(clean_input)
+    keyword = slice_dashes(clean_input)
+    command = "command_#{keyword}"
+    if respond_to? command # Does this command actually exist in games controller?
+      send command # If yes, then execute that command
+    else
+      update_state_log('system', 'Sorry, that system command does not exist')
+    end
+  end
+
+  def handle_action(action)
+    action_description = action.description
+    update_state_log('game', action_description)
+
+    session[:state_id] = action.result_id
+
+    new_state_description = State.find(action.result_id).description
+    update_state_log('game', new_state_description)
   end
 
   # method called in update#states_controller
@@ -193,36 +208,17 @@ class GamesController < ApplicationController
   def handle_user_input(user_input)
     clean_input = clean_user_input(user_input)
 
-    if system_message?(clean_input) # Is it a system-type message?
-      keyword = slice_dashes(clean_input) # If yes, slice off the dashes
-      command = "command_#{keyword}"
-      if respond_to? command # Does this command actually exist in games controller?
-        send command # If yes, then execute that command
-      else
-        logItem = {
-          type: 'game',
-          value: 'Sorry, that system command does not exist'
-        }
-        update_state_log(logItem)
-      end
-    else # If not a system message, then it is a user action # So take their trigger and find the next_state_id
-      if aprox_trigger?(clean_input)
-        new_state_id = aprox_trigger?(clean_input)
-        session[:state_id] = new_state_id
-        description = State.find(new_state_id).description
-        logItem = {
-          type: 'game',
-          value: description
-        }
-        update_state_log(logItem)
-      else
-        state_id = session[:state_id]
-        logItem = {
-          type: 'system',
-          value: 'Sorry I don\'t know what that means'
-        }
-        update_state_log(logItem)
-      end
+    if system_message?(clean_input)
+      handle_system_message(clean_input)
+
+    # If action exists:
+    elsif aprox_trigger?(clean_input)
+      action = aprox_trigger?(clean_input)
+      handle_action(action)
+
+    else
+      state_id = session[:state_id]
+      update_state_log('system', 'Sorry I don\'t know what that means')
     end
 
     if not performed?
@@ -291,7 +287,8 @@ class GamesController < ApplicationController
   def new_action_params
     params.require(:new_action).permit(
       :second_state,
-      :trigger_word
+      :trigger_word,
+      :action_desc
       )
   end
 end

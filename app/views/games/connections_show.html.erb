@@ -25,6 +25,8 @@
           <%= f.select :second_state, options_from_collection_for_select(State.where(game_id: params[:new_id]), :id, :name) %>
           with
           <%= f.text_field :trigger_word, placeholder: 'ex. right, left', autocomplete: 'off' %>
+          <%= f.label :action_desc, '(add optional action description)' %>
+          <%= f.text_field :action_desc, placeholder: 'ex. the door to your left creaks open...', autocomplete: 'off' %>
           <%= f.submit 'Create Connection'%>
         <% end %>
         <%= form_for :save_game, url: "/games/new/#{params[:new_id]}", method: 'POST' do |f| %>
