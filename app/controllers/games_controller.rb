@@ -273,10 +273,9 @@ class GamesController < ApplicationController
       user_email: email,
       game_id: session[:game_id]
     }
-    response = SaveState.load_game(save_state)
-    if response[:state_id]
-      session[:state_id] = response[:state_id]
-    end
+    response, state_id = SaveState.load_game(save_state)
+    session[:state_id] = state_id
+    update_state_log(response[:type], response[:value])
   end
 
   #/////////////////////#
