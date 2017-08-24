@@ -22,7 +22,8 @@ class SaveState < ApplicationRecord
       response = {type: 'game', value: State.find(save_state.state_id).description}
       state_id = save_state[:state_id]
     else
-      response = {type: 'system', value: 'please provide an email, type "--load <your email here>"'}
+      value = state_obj[:user_email] ? 'sorry, I don\'t recognize that email' : 'please provide an email, type "--load <your email here>"'
+      response = {type: 'system', value: value}
       state_id = state_obj[:state_id]
     end
     return response, state_id
