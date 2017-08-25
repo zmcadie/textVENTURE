@@ -3,9 +3,9 @@
 
 State.destroy_all
 Game.destroy_all
-@game1 = Game.create! id: 1, name: "Harry Potter Maze", publish: true
+@game1 = Game.create! name: "Harry Potter Maze", publish: true
 
-@game2 = Game.create! id: 2, name: "Windows XP Rooms", publish: true
+@game2 = Game.create! name: "Windows XP Rooms", publish: true
 
 # Game 1 #
 
@@ -45,91 +45,109 @@ Game.destroy_all
 
 @maze_entrance.actions.create!({
   trigger: 'no',
+  description: 'you dont want to enter the maze',
   result_id: @no_enter.id
 })
 
 @maze_entrance.actions.create!({
   trigger: 'yes',
+  description: 'you do want to enter the maze',
   result_id: @enter.id
 })
 
 @enter.actions.create!({
   trigger: 'left',
+  description: 'you pick left',
   result_id: @left.id
 })
 
 @enter.actions.create!({
   trigger: 'right',
+  description: 'you pick the right path',
   result_id: @right.id
 })
 
 @no_enter.actions.create!({
   trigger: 'left',
+  description: 'you pick left',
   result_id: @left.id
 })
 
 @no_enter.actions.create!({
   trigger: 'right',
+  description: 'you pick the right path',
   result_id: @right.id
 })
 
 @right.actions.create!({
   trigger: 'left',
+  description: 'you pick left',
   result_id: @left.id
 })
 
 @right.actions.create!({
   trigger: 'screaming',
+  description: 'you go towards the screaming',
   result_id: @left.id
 })
 
 @right.actions.create!({
   trigger: 'right',
+  description: 'you pick the right path',
   result_id: @smoke.id
 })
 
 @right.actions.create!({
   trigger: 'smoke',
+  description: 'you walk towards the smoke',
   result_id: @smoke.id
 })
 
 @left.actions.create!({
   trigger: 'left',
+  description: 'you pick left',
   result_id: @smoke.id
 })
 
 @left.actions.create!({
   trigger: 'grumbling',
+  description: 'you walk towards the grumbling',
   result_id: @smoke.id
 })
 
 @left.actions.create!({
   trigger: 'right',
+  description: 'you pick the right path',
   result_id: @cup.id
 })
 
 @left.actions.create!({
   trigger: 'clear',
+  description: 'you walk towards the clear',
   result_id: @cup.id
 })
 
 @smoke.actions.create!({
   trigger: 'reducto',
+  description: 'you yell reducto',
   result_id: @spells.id
 })
 
 @smoke.actions.create!({
   trigger: 'stupify',
+  description: 'you yell stupify',
   result_id: @spells.id
 })
 
 @smoke.actions.create!({
   trigger: 'expelliarmus',
+  description: 'you yell expelliarmus',
   result_id: @spells.id
 })
 
 @spells.actions.create!({
   trigger: 'forward',
+  description: 'you walk forward',
   result_id: @cup.id
 })
 
@@ -140,6 +158,7 @@ Game.destroy_all
 
 @cup.actions.create!({
   trigger: 'grab',
+  description: 'you grab it',
   result_id: @maze_entrance.id
 })
 

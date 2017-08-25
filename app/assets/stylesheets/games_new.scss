@@ -6,7 +6,7 @@ h2 {
 div.container {
   align-items: center;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-around;
 
   section {
     form {
@@ -84,7 +84,7 @@ div.container {
 
       header.sidebar-header {
         background-color: black;
-        position: fixed;
+        position: relative;
         width: 15vw;
 
         h3 {
@@ -128,7 +128,6 @@ div.container {
     background-color: white;
     color: black;
   }
-
 
   a.start-connecting-link {
     background-color: grey;
