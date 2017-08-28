@@ -1,18 +1,15 @@
 class GamesController < ApplicationController
-  @@state_log = []
-
   def index
-    # display games index list
-    @@state_log = []
+    session[:state_log] = []
     @games = display_games_index
   end
 
   def show
     # render each new game state, along with history (state_log)
-    if @@state_log == []
+    if session[:state_log] == []
       redirect_to '/'
     else
-      @log = @@state_log
+      @log = session[:state_log]
       @state_id = session[:state_id]
     end
   end
@@ -141,7 +138,7 @@ class GamesController < ApplicationController
       type: type,
       value: value
     }
-    @@state_log.push(logItem)
+    session[:state_log] << logItem
   end
 
   # displays a list of the names of published games
@@ -258,7 +255,6 @@ class GamesController < ApplicationController
 
   def command_quit
     reset_session
-    @@state_log = []
     redirect_to "/"
   end
 
