@@ -191,6 +191,12 @@ class GamesController < ApplicationController
     action_info = nil
     Action.where({ state_id: session['state_id'] }).find_each do |action|
       trigger_words = action.trigger.split
+      trigger_words.map! do |word|
+        if word[0] == '.'
+          word = word[1..-1]
+        end
+        word
+      end
       if trigger_words.any? { |word| user_input.include?(word) }
         action_info = action
       end
