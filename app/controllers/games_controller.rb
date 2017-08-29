@@ -154,7 +154,9 @@ class GamesController < ApplicationController
   def display_possible_actions
     available_actions = ""
     Action.where({ state_id: session['state_id'] }).find_each do |trigger|
-      available_actions += trigger.trigger + " "
+      if trigger.trigger[0] != '.'
+        available_actions += trigger.trigger + " "
+      end
     end
     actions_list = available_actions.strip.split.join(", ")
     action = "Maybe try one of: #{actions_list}"
@@ -189,6 +191,12 @@ class GamesController < ApplicationController
     action_info = nil
     Action.where({ state_id: session['state_id'] }).find_each do |action|
       trigger_words = action.trigger.split
+      trigger_words.map! do |word|
+        if word[0] == '.'
+          word = word[1..-1]
+        end
+        word
+      end
       if trigger_words.any? { |word| user_input.include?(word) }
         action_info = action
       end
