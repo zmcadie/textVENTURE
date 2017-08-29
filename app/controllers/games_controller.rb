@@ -154,7 +154,9 @@ class GamesController < ApplicationController
   def display_possible_actions
     available_actions = ""
     Action.where({ state_id: session['state_id'] }).find_each do |trigger|
-      available_actions += trigger.trigger + " "
+      if trigger.trigger[0] != '.'
+        available_actions += trigger.trigger + " "
+      end
     end
     actions_list = available_actions.strip.split.join(", ")
     action = "Maybe try one of: #{actions_list}"
